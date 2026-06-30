@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闪念 - AI 语音笔记 | Apple Watch、iOS、Android、Windows、macOS、Linux 全平台下载</title>
+    <meta name="description" content="闪念是一款 AI 语音笔记应用，支持 Apple Watch、iOS、Android、Windows、macOS、Linux。开口记录灵感、会议、待办和想法，AI 自动转写、总结、提取行动项。">
+    <meta name="keywords" content="闪念,AI语音笔记,语音转文字,AI笔记,灵感记录,待办提取,跨平台笔记,Apple Watch,iOS,Android,Windows,Mac,Linux">
+    <meta property="og:title" content="闪念 - AI 语音笔记">
+    <meta property="og:description" content="开口即记录，AI 自动整理。支持 Apple Watch、iOS、Android、Windows、macOS、Linux。">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#27c95d">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='white'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='%2327c95d' stroke-width='10'/%3E%3Cpath d='M32 15a17 17 0 0 1 17 17' fill='none' stroke='%231677ff' stroke-width='10' stroke-linecap='round'/%3E%3C/svg%3E">
+    <style>
+        :root {
+            --green: #27c95d;
+            --green-strong: #16a34a;
+            --blue: #1677ff;
+            --yellow: #ffb020;
+            --ink: #101828;
+            --ink-soft: #344054;
+            --muted: #667085;
+            --line: #d9e3df;
+            --paper: #ffffff;
+            --mist: #eef8f2;
+            --mist-2: #f8fbff;
+            --dark: #101418;
+            --dark-soft: #1b2127;
+            --shadow: 0 18px 55px rgba(16, 24, 40, 0.12);
+            --radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-width: 320px;
+            background: #f8fbfa;
+            color: var(--ink);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+        img, svg {
+            display: block;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .site-shell {
+            background:
+                linear-gradient(180deg, rgba(39, 201, 93, 0.12), rgba(255, 255, 255, 0) 520px),
+                linear-gradient(90deg, rgba(22, 119, 255, 0.08), rgba(255, 255, 255, 0) 42%),
+                #f8fbfa;
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            border-bottom: 1px solid rgba(217, 227, 223, 0);
+            transition: background 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(248, 251, 250, 0.88);
+            border-color: rgba(217, 227, 223, 0.92);
+            box-shadow: 0 8px 30px rgba(16, 24, 40, 0.06);
+            backdrop-filter: blur(16px);
+        }
+
+        .nav-inner {
+            width: min(1180px, calc(100% - 40px));
+            height: 72px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            min-width: 0;
+        }
+
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 10px 24px rgba(22, 119, 255, 0.18);
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+        }
+
+        .brand-mark::before {
+            content: "";
+            width: 22px;
+            height: 22px;
+            border: 7px solid var(--green);
+            border-right-color: var(--blue);
+            border-radius: 999px;
+        }
+
+        .brand-copy strong {
+            display: block;
+            font-size: 19px;
+            line-height: 1.1;
+            letter-spacing: 0;
+        }
+
+        .brand-copy span {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.3;
+            margin-top: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+            color: var(--ink-soft);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 44px;
+            padding: 0 18px;
+            border: 1px solid transparent;
+            border-radius: var(--radius);
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+            white-space: nowrap;
+        }
+
+        .button svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+        }
+
+        .button-primary {
+            background: var(--green);
+            color: #fff;
+            box-shadow: 0 12px 24px rgba(39, 201, 93, 0.24);
+        }
+
+        .button-primary:hover {
+            background: var(--green-strong);
+        }
+
+        .button-secondary {
+            background: #fff;
+            color: var(--ink);
+            border-color: var(--line);
+        }
+
+        .button-secondary:hover {
+            border-color: rgba(22, 119, 255, 0.35);
+            box-shadow: 0 10px 24px rgba(16, 24, 40, 0.08);
+        }
+
+        .hero {
+            width: min(1180px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 64px 0 76px;
+            display: grid;
+            grid-template-columns: minmax(0, 0.92fr) minmax(440px, 1.08fr);
+            gap: 50px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 18px;
+            padding: 8px 12px;
+            border: 1px solid rgba(39, 201, 93, 0.24);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--green-strong);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--green);
+            box-shadow: 0 0 0 6px rgba(39, 201, 93, 0.14);
+        }
+
+        .hero h1 {
+            max-width: 620px;
+            font-size: clamp(40px, 5.2vw, 66px);
+            line-height: 1.06;
+            letter-spacing: 0;
+            color: var(--ink);
+        }
+
+        .hero h1 span {
+            color: var(--green-strong);
+        }
+
+        .hero-subtitle {
+            max-width: 590px;
+            margin-top: 24px;
+            color: var(--ink-soft);
+            font-size: 19px;
+        }
+
+        .hero-actions {
+            margin-top: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .platform-strip {
+            margin-top: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .platform-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            min-height: 34px;
+            padding: 0 11px;
+            border: 1px solid rgba(217, 227, 223, 0.96);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.72);
+            color: var(--ink-soft);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .platform-chip svg {
+            width: 16px;
+            height: 16px;
+            color: var(--green-strong);
+        }
+
+        .hero-proof {
+            margin-top: 28px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            max-width: 590px;
+        }
+
+        .proof-item {
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+        }
+
+        .proof-item strong {
+            display: block;
+            color: var(--ink);
+            font-size: 18px;
+            line-height: 1.3;
+        }
+
+        .proof-item span {
+            display: block;
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .showcase {
+            position: relative;
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .device-hero-image {
+            width: min(100%, 760px);
+            height: auto;
+            margin-left: auto;
+            filter: drop-shadow(0 26px 44px rgba(16, 24, 40, 0.14));
+        }
+
+        .desktop-frame {
+            position: relative;
+            margin-left: auto;
+            width: min(100%, 730px);
+            border: 1px solid rgba(16, 24, 40, 0.12);
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .desktop-frame img {
+            width: 100%;
+            height: auto;
+        }
+
+        .desktop-tabs {
+            position: absolute;
+            right: 14px;
+            top: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 2;
+        }
+
+        .desktop-tabs span {
+            padding: 5px 9px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.78);
+            color: var(--ink-soft);
+            font-size: 12px;
+            font-weight: 800;
+            backdrop-filter: blur(12px);
+        }
+
+        .phone-frame {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: min(34vw, 236px);
+            min-width: 170px;
+            border: 8px solid #111;
+            border-radius: 28px;
+            background: #111;
+            box-shadow: 0 18px 50px rgba(16, 24, 40, 0.28);
+            overflow: hidden;
+        }
+
+        .phone-frame::before {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 62px;
+            height: 16px;
+            border-radius: 0 0 12px 12px;
+            background: #111;
+            z-index: 2;
+        }
+
+        .phone-frame img {
+            width: 100%;
+            height: auto;
+            border-radius: 19px;
+        }
+
+        .section {
+            padding: 84px 0;
+            border-top: 1px solid rgba(217, 227, 223, 0.74);
+        }
+
+        .section-inner {
+            width: min(1180px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        .section-header {
+            max-width: 750px;
+            margin-bottom: 34px;
+        }
+
+        .section-kicker {
+            color: var(--green-strong);
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 0;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            color: var(--ink);
+            font-size: clamp(30px, 4vw, 48px);
+            line-height: 1.18;
+            letter-spacing: 0;
+        }
+
+        .section-desc {
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 17px;
+        }
+
+        .download-panel {
+            display: grid;
+            grid-template-columns: 0.75fr 1.25fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .recommended {
+            padding: 28px;
+            border-radius: var(--radius);
+            background: var(--dark);
+            color: #fff;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .recommended-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #a7f3d0;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .recommended-label svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .recommended h3 {
+            margin-top: 16px;
+            font-size: 28px;
+            line-height: 1.25;
+        }
+
+        .recommended p {
+            margin-top: 12px;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 15px;
+        }
+
+        .recommended .button {
+            width: fit-content;
+            margin-top: 22px;
+        }
+
+        .download-note {
+            color: rgba(255, 255, 255, 0.56);
+            font-size: 12px;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .download-card {
+            padding: 22px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: #fff;
+            box-shadow: 0 10px 26px rgba(16, 24, 40, 0.05);
+        }
+
+        .download-card-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .download-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            background: var(--mist);
+            color: var(--green-strong);
+            flex: 0 0 auto;
+        }
+
+        .download-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .download-badge {
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: #eff8ff;
+            color: var(--blue);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .download-card h3 {
+            font-size: 20px;
+            line-height: 1.25;
+        }
+
+        .download-card p {
+            min-height: 48px;
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .download-meta {
+            margin: 16px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .download-meta span {
+            padding: 5px 8px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            color: var(--ink-soft);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .download-card .button {
+            width: 100%;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .feature-card {
+            min-height: 230px;
+            padding: 24px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: #fff;
+        }
+
+        .feature-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 18px;
+            color: var(--blue);
+            background: #eff8ff;
+        }
+
+        .feature-icon.green {
+            color: var(--green-strong);
+            background: var(--mist);
+        }
+
+        .feature-icon.yellow {
+            color: #b76a00;
+            background: #fff7e6;
+        }
+
+        .feature-icon svg {
+            width: 23px;
+            height: 23px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            line-height: 1.25;
+        }
+
+        .feature-card p {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(380px, 0.85fr);
+            gap: 42px;
+            align-items: center;
+        }
+
+        .workflow-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .workflow-item {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 15px;
+            padding: 18px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: #fff;
+        }
+
+        .workflow-number {
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            background: var(--dark);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-weight: 900;
+            font-size: 14px;
+        }
+
+        .workflow-item h3 {
+            font-size: 18px;
+        }
+
+        .workflow-item p {
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .visual-stack {
+            position: relative;
+        }
+
+        .visual-stack img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid rgba(16, 24, 40, 0.12);
+            box-shadow: var(--shadow);
+        }
+
+        .visual-caption {
+            margin-top: 12px;
+            color: var(--muted);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .watch-section {
+            background: linear-gradient(180deg, #f8fbfa, #eef8f2);
+        }
+
+        .watch-visual {
+            padding: 0;
+            border-radius: var(--radius);
+            background: #fff;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .watch-visual img {
+            width: 100%;
+            height: auto;
+        }
+
+        .scenario-band {
+            background: #101418;
+            color: #fff;
+        }
+
+        .scenario-band .section-title,
+        .scenario-band .section-kicker {
+            color: #fff;
+        }
+
+        .scenario-band .section-desc {
+            color: rgba(255, 255, 255, 0.68);
+        }
+
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .scenario-card {
+            padding: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .scenario-card svg {
+            width: 28px;
+            height: 28px;
+            color: #a7f3d0;
+            margin-bottom: 18px;
+        }
+
+        .scenario-card h3 {
+            font-size: 18px;
+        }
+
+        .scenario-card p {
+            margin-top: 9px;
+            color: rgba(255, 255, 255, 0.66);
+            font-size: 14px;
+        }
+
+        .final-cta {
+            padding: 84px 0;
+            background: linear-gradient(180deg, #f8fbfa, #eef8f2);
+            text-align: center;
+        }
+
+        .final-cta-inner {
+            width: min(840px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        .final-cta h2 {
+            font-size: clamp(32px, 5vw, 56px);
+            line-height: 1.14;
+        }
+
+        .final-cta p {
+            max-width: 610px;
+            margin: 16px auto 28px;
+            color: var(--muted);
+            font-size: 17px;
+        }
+
+        .footer {
+            border-top: 1px solid var(--line);
+            background: #fff;
+        }
+
+        .footer-inner {
+            width: min(1180px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 28px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+        }
+
+        @media (max-width: 980px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 44px;
+            }
+
+            .showcase {
+                justify-content: center;
+            }
+
+            .desktop-frame {
+                width: 92%;
+            }
+
+            .phone-frame {
+                width: 210px;
+            }
+
+            .download-panel,
+            .split {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .scenario-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-inner,
+            .hero,
+            .section-inner,
+            .footer-inner,
+            .final-cta-inner {
+                width: min(100% - 28px, 1180px);
+            }
+
+            .nav-inner {
+                height: 64px;
+            }
+
+            .brand-copy span {
+                display: none;
+            }
+
+            .nav-actions .button-secondary {
+                display: none;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .nav-actions .button {
+                width: auto;
+                padding: 0 13px;
+            }
+
+            .hero {
+                padding-bottom: 52px;
+            }
+
+            .hero-subtitle {
+                font-size: 17px;
+            }
+
+            .hero-actions {
+                align-items: stretch;
+            }
+
+            .hero-proof,
+            .download-grid,
+            .features-grid,
+            .scenario-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .showcase {
+                margin-top: 8px;
+            }
+
+            .desktop-frame {
+                width: 100%;
+            }
+
+            .phone-frame {
+                width: 150px;
+                border-width: 6px;
+                border-radius: 23px;
+            }
+
+            .desktop-tabs {
+                display: none;
+            }
+
+            .section {
+                padding: 62px 0;
+            }
+
+            .recommended,
+            .download-card,
+            .feature-card,
+            .workflow-item,
+            .scenario-card {
+                padding: 18px;
+            }
+
+            .download-card p {
+                min-height: auto;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="site-shell">
+        <nav class="nav" id="nav">
+            <div class="nav-inner">
+                <a class="brand" href="#" aria-label="闪念首页">
+                    <span class="brand-mark" aria-hidden="true"></span>
+                    <span class="brand-copy">
+                        <strong>闪念</strong>
+                        <span>AI 语音笔记</span>
+                    </span>
+                </a>
+                <ul class="nav-links" aria-label="主导航">
+                    <li><a href="#downloads">下载</a></li>
+                    <li><a href="#features">功能</a></li>
+                    <li><a href="#watch">手表端</a></li>
+                    <li><a href="#workflow">工作流</a></li>
+                    <li><a href="#scenarios">场景</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a class="button button-secondary" href="#features">了解功能</a>
+                    <a class="button button-primary" href="#downloads">立即下载</a>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <section class="hero" aria-label="闪念产品介绍">
+                <div>
+                    <div class="eyebrow">现已支持 Apple Watch、iOS、Android、Windows、macOS、Linux</div>
+                    <h1>开口记录，<span>AI 帮你整理成笔记</span></h1>
+                    <p class="hero-subtitle">
+                        闪念把语音、图片和零散想法整理成清晰笔记、待办、摘要和结构导图。手机上随手记，电脑上继续写，多端协同不打断思路。
+                    </p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" id="hero-download" href="#downloads">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 3v12"></path>
+                                <path d="m7 10 5 5 5-5"></path>
+                                <path d="M5 21h14"></path>
+                            </svg>
+                            下载适合我的版本
+                        </a>
+                        <a class="button button-secondary" href="#workflow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 7h16"></path>
+                                <path d="M4 12h10"></path>
+                                <path d="M4 17h16"></path>
+                            </svg>
+                            看看如何整理
+                        </a>
+                    </div>
+                    <div class="platform-strip" aria-label="支持平台">
+                        <span class="platform-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="5" width="10" height="14" rx="4"></rect><path d="M9 2h6"></path><path d="M9 22h6"></path><path d="M17 10h2"></path></svg>Apple Watch</span>
+                        <span class="platform-chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.2 2.2c0 1.2-.5 2.2-1.3 3-.8.8-1.8 1.3-2.8 1.2-.1-1.1.4-2.2 1.1-3 .8-.8 1.9-1.3 3-1.2ZM19.8 17.1c-.4.9-.7 1.3-1.2 2.1-.8 1.2-1.9 2.7-3.3 2.7-1.2 0-1.6-.8-3.2-.8-1.7 0-2.1.8-3.3.8-1.4.1-2.5-1.5-3.3-2.7-2.3-3.5-2.5-7.6-1.1-9.8 1-1.5 2.5-2.4 4-2.4 1.5 0 2.4.8 3.6.8 1.2 0 1.9-.8 3.6-.8 1.3 0 2.7.7 3.7 1.9-3.2 1.8-2.7 6.4.5 8.2Z"></path></svg>iOS</span>
+                        <span class="platform-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 8h10v9a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V8Z"></path><path d="M9 8 7.5 5.5"></path><path d="M15 8l1.5-2.5"></path><path d="M9 12h.01"></path><path d="M15 12h.01"></path><path d="M5 10v6"></path><path d="M19 10v6"></path></svg>Android</span>
+                        <span class="platform-chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 4.8 11 3.7v7.7H3V4.8Zm9-1.2 9-1.3v9.1h-9V3.6ZM3 12.6h8v7.7l-8-1.1v-6.6Zm9 0h9v9.1l-9-1.3v-7.8Z"></path></svg>Windows</span>
+                        <span class="platform-chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.2 2.2c0 1.2-.5 2.2-1.3 3-.8.8-1.8 1.3-2.8 1.2-.1-1.1.4-2.2 1.1-3 .8-.8 1.9-1.3 3-1.2ZM19.8 17.1c-.4.9-.7 1.3-1.2 2.1-.8 1.2-1.9 2.7-3.3 2.7-1.2 0-1.6-.8-3.2-.8-1.7 0-2.1.8-3.3.8-1.4.1-2.5-1.5-3.3-2.7-2.3-3.5-2.5-7.6-1.1-9.8 1-1.5 2.5-2.4 4-2.4 1.5 0 2.4.8 3.6.8 1.2 0 1.9-.8 3.6-.8 1.3 0 2.7.7 3.7 1.9-3.2 1.8-2.7 6.4.5 8.2Z"></path></svg>macOS</span>
+                        <span class="platform-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17h16"></path><path d="M5 7h14v10H5z"></path><path d="m8 11 2 2-2 2"></path><path d="M12 15h4"></path></svg>Linux</span>
+                    </div>
+                    <div class="hero-proof">
+                        <div class="proof-item">
+                            <strong>语音优先</strong>
+                            <span>长按麦克风快速记录灵感</span>
+                        </div>
+                        <div class="proof-item">
+                            <strong>AI 整理</strong>
+                            <span>摘要、待办、结构一键生成</span>
+                        </div>
+                        <div class="proof-item">
+                            <strong>腕上也能记</strong>
+                            <span>手表、手机、电脑连续使用</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="showcase" aria-label="闪念应用截图">
+                    <img class="device-hero-image" src="assets/showcase/platform-illustration.png" alt="闪念全平台插画，展示 Apple Watch、手机、平板、桌面显示器、Windows 笔记本和 Linux 设备协同使用">
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <section class="section" id="downloads">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-kicker">DOWNLOAD</div>
+                <h2 class="section-title">一个闪念账号，覆盖你的所有设备</h2>
+                <p class="section-desc">手表端和移动端适合随时记录，桌面端适合整理、搜索和深度编辑。当前安装包版本为 1.0.5。</p>
+            </div>
+
+            <div class="download-panel">
+                <aside class="recommended">
+                    <div>
+                        <div class="recommended-label">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2v6"></path>
+                                <path d="M12 16v6"></path>
+                                <path d="m4.9 4.9 4.2 4.2"></path>
+                                <path d="m14.9 14.9 4.2 4.2"></path>
+                                <path d="M2 12h6"></path>
+                                <path d="M16 12h6"></path>
+                                <path d="m4.9 19.1 4.2-4.2"></path>
+                                <path d="m14.9 9.1 4.2-4.2"></path>
+                            </svg>
+                            智能推荐
+                        </div>
+                        <h3 id="recommended-title">选择你的系统下载闪念</h3>
+                        <p id="recommended-desc">我们会根据当前设备推荐合适版本，你也可以在右侧选择其它平台。</p>
+                        <a class="button button-primary" id="recommended-link" href="#download-options">查看全部下载</a>
+                    </div>
+                    <div class="download-note">提示：Apple Watch 随 iOS 版使用；Windows 为安装程序，macOS 为 Apple Silicon DMG，Linux 为 Debian arm64 包，Android 为 APK。</div>
+                </aside>
+
+                <div class="download-grid" id="download-options">
+                    <article class="download-card" data-platform="ios">
+                        <div class="download-card-head">
+                            <div class="download-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.2 2.2c0 1.2-.5 2.2-1.3 3-.8.8-1.8 1.3-2.8 1.2-.1-1.1.4-2.2 1.1-3 .8-.8 1.9-1.3 3-1.2ZM19.8 17.1c-.4.9-.7 1.3-1.2 2.1-.8 1.2-1.9 2.7-3.3 2.7-1.2 0-1.6-.8-3.2-.8-1.7 0-2.1.8-3.3.8-1.4.1-2.5-1.5-3.3-2.7-2.3-3.5-2.5-7.6-1.1-9.8 1-1.5 2.5-2.4 4-2.4 1.5 0 2.4.8 3.6.8 1.2 0 1.9-.8 3.6-.8 1.3 0 2.7.7 3.7 1.9-3.2 1.8-2.7 6.4.5 8.2Z"></path></svg>
+                            </div>
+                            <span class="download-badge">移动端</span>
+                        </div>
+                        <h3>iOS / iPadOS / Apple Watch</h3>
+                        <p>适合随时语音记录、卡片浏览、标签筛选，并在 iPhone、iPad 和 Apple Watch 上同步灵感。</p>
+                        <div class="download-meta"><span>App Store</span><span>iPhone</span><span>iPad</span><span>Watch</span></div>
+                        <a class="button button-secondary" href="https://apps.apple.com/cn/app/%E9%97%AA%E5%BF%B5-ai%E8%AF%AD%E9%9F%B3%E7%AC%94%E8%AE%B0/id1397149726" target="_blank" rel="noopener noreferrer">前往 App Store</a>
+                    </article>
+
+                    <article class="download-card" data-platform="android">
+                        <div class="download-card-head">
+                            <div class="download-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 8h10v9a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V8Z"></path><path d="M9 8 7.5 5.5"></path><path d="M15 8l1.5-2.5"></path><path d="M9 12h.01"></path><path d="M15 12h.01"></path><path d="M5 10v6"></path><path d="M19 10v6"></path></svg>
+                            </div>
+                            <span class="download-badge">移动端</span>
+                        </div>
+                        <h3>Android</h3>
+                        <p>APK 安装包，适合安卓手机快速记录语音、查看笔记卡片和同步工作内容。</p>
+                        <div class="download-meta"><span>APK</span><span>v1.0</span><span>手机</span></div>
+                        <a class="button button-secondary" href="https://dl.northcity.top/1.0.5/ShanNianAndroid-v1.0-release.apk" target="_blank" rel="noopener noreferrer">下载 Android APK</a>
+                    </article>
+
+                    <article class="download-card" data-platform="windows">
+                        <div class="download-card-head">
+                            <div class="download-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 4.8 11 3.7v7.7H3V4.8Zm9-1.2 9-1.3v9.1h-9V3.6ZM3 12.6h8v7.7l-8-1.1v-6.6Zm9 0h9v9.1l-9-1.3v-7.8Z"></path></svg>
+                            </div>
+                            <span class="download-badge">桌面端</span>
+                        </div>
+                        <h3>Windows</h3>
+                        <p>在电脑上处理会议笔记、长文本整理、搜索归档，让桌面工作流更完整。</p>
+                        <div class="download-meta"><span>EXE</span><span>v1.0.5</span><span>Setup</span></div>
+                        <a class="button button-secondary" href="https://dl.northcity.top/1.0.5/%E9%97%AA%E5%BF%B5%E6%A1%8C%E9%9D%A2%E7%AB%AF%20Setup%201.0.5.exe" target="_blank" rel="noopener noreferrer">下载 Windows 版</a>
+                    </article>
+
+                    <article class="download-card" data-platform="macos">
+                        <div class="download-card-head">
+                            <div class="download-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.2 2.2c0 1.2-.5 2.2-1.3 3-.8.8-1.8 1.3-2.8 1.2-.1-1.1.4-2.2 1.1-3 .8-.8 1.9-1.3 3-1.2ZM19.8 17.1c-.4.9-.7 1.3-1.2 2.1-.8 1.2-1.9 2.7-3.3 2.7-1.2 0-1.6-.8-3.2-.8-1.7 0-2.1.8-3.3.8-1.4.1-2.5-1.5-3.3-2.7-2.3-3.5-2.5-7.6-1.1-9.8 1-1.5 2.5-2.4 4-2.4 1.5 0 2.4.8 3.6.8 1.2 0 1.9-.8 3.6-.8 1.3 0 2.7.7 3.7 1.9-3.2 1.8-2.7 6.4.5 8.2Z"></path></svg>
+                            </div>
+                            <span class="download-badge">桌面端</span>
+                        </div>
+                        <h3>macOS</h3>
+                        <p>桌面端适合在 Mac 上写作、归档、管理分类，并和移动端保持同一套笔记。</p>
+                        <div class="download-meta"><span>DMG</span><span>v1.0.5</span><span>arm64</span></div>
+                        <a class="button button-secondary" href="https://dl.northcity.top/1.0.5/%E9%97%AA%E5%BF%B5%E6%A1%8C%E9%9D%A2%E7%AB%AF-1.0.5-arm64.dmg" target="_blank" rel="noopener noreferrer">下载 macOS 版</a>
+                    </article>
+
+                    <article class="download-card" data-platform="linux">
+                        <div class="download-card-head">
+                            <div class="download-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17h16"></path><path d="M5 7h14v10H5z"></path><path d="m8 11 2 2-2 2"></path><path d="M12 15h4"></path></svg>
+                            </div>
+                            <span class="download-badge">桌面端</span>
+                        </div>
+                        <h3>Linux</h3>
+                        <p>适合 Linux 工作站用户在本机整理笔记、沉淀想法和处理长篇语音内容。</p>
+                        <div class="download-meta"><span>DEB</span><span>v1.0.5</span><span>arm64</span></div>
+                        <a class="button button-secondary" href="https://dl.northcity.top/1.0.5/shannian-desktop_1.0.5_arm64.deb" target="_blank" rel="noopener noreferrer">下载 Linux 版</a>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="features">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-kicker">FEATURES</div>
+                <h2 class="section-title">从一句话，到一篇能继续推进的笔记</h2>
+                <p class="section-desc">闪念的重点不是把声音存起来，而是帮你把散乱表达变成可以搜索、复盘、执行和再次创作的内容。</p>
+            </div>
+            <div class="features-grid">
+                <article class="feature-card">
+                    <div class="feature-icon green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><path d="M12 19v3"></path></svg>
+                    </div>
+                    <h3>手表与手机快速记录</h3>
+                    <p>抬腕或打开手机就能说，适合走路、开会、睡前、通勤时记录灵感，减少打字打断。</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3"></path><path d="M12 18v3"></path><path d="M3 12h3"></path><path d="M18 12h3"></path><path d="m5.6 5.6 2.1 2.1"></path><path d="m16.3 16.3 2.1 2.1"></path><path d="m18.4 5.6-2.1 2.1"></path><path d="m7.7 16.3-2.1 2.1"></path><path d="M9 12a3 3 0 1 0 6 0 3 3 0 0 0-6 0Z"></path></svg>
+                    </div>
+                    <h3>AI 智能总结</h3>
+                    <p>自动提炼主题、关键点和完整摘要，把口语化表达整理成更易读的文本。</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon yellow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11 12 14 22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                    </div>
+                    <h3>待办自动提取</h3>
+                    <p>从录音和笔记里识别要做的事，减少会后遗漏，让行动项更容易跟进。</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h7"></path><path d="M15 18h5"></path></svg>
+                    </div>
+                    <h3>结构化整理</h3>
+                    <p>把内容拆成标题、段落、清单和标签，适合复盘、写作、项目记录和知识沉淀。</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M7 10 12 15 17 10"></path><path d="M12 15V3"></path></svg>
+                    </div>
+                    <h3>图片与附件</h3>
+                    <p>笔记可搭配图片和附件，保留白板、手写、截图等现场信息。</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon yellow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"></path><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 2.7 8"></path></svg>
+                    </div>
+                    <h3>多端连续使用</h3>
+                    <p>手表和手机负责捕捉，桌面负责整理，跨平台覆盖 Apple Watch、iOS、Android、Windows、macOS、Linux。</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section watch-section" id="watch">
+        <div class="section-inner split">
+            <div>
+                <div class="section-header">
+                    <div class="section-kicker">APPLE WATCH</div>
+                    <h2 class="section-title">灵感来得很快，手表端先接住</h2>
+                    <p class="section-desc">Apple Watch 端支持准备录音、录音中控制和查看笔记卡片。你不用拿出手机，也能把当下的想法先保存下来。</p>
+                </div>
+                <div class="workflow-list">
+                    <article class="workflow-item">
+                        <div class="workflow-number">1</div>
+                        <div>
+                            <h3>抬腕准备录音</h3>
+                            <p>轻点开始，适合走路、运动、临时会议等不方便打字的场景。</p>
+                        </div>
+                    </article>
+                    <article class="workflow-item">
+                        <div class="workflow-number">2</div>
+                        <div>
+                            <h3>腕上控制录音</h3>
+                            <p>录音中可以暂停或结束，保留关键语音素材，回到手机或桌面继续整理。</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div class="watch-visual">
+                <img src="assets/showcase/watch-illustration.png" alt="闪念 Apple Watch 端插画，展示全部笔记、录音中和准备录音三种状态">
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="workflow">
+        <div class="section-inner split">
+            <div>
+                <div class="section-header">
+                    <div class="section-kicker">WORKFLOW</div>
+                    <h2 class="section-title">把灵感从捕捉推进到可执行</h2>
+                    <p class="section-desc">闪念适合“先说出来，再慢慢整理”的思考方式。你只需要负责表达，剩下的交给 AI 和多端工作流。</p>
+                </div>
+                <div class="workflow-list">
+                    <article class="workflow-item">
+                        <div class="workflow-number">1</div>
+                        <div>
+                            <h3>随手记录</h3>
+                            <p>手表或手机端快速记录想法，也可以添加图片、标签和分类。</p>
+                        </div>
+                    </article>
+                    <article class="workflow-item">
+                        <div class="workflow-number">2</div>
+                        <div>
+                            <h3>AI 处理</h3>
+                            <p>自动转写、总结、识别待办、梳理结构，让内容从口语变成笔记。</p>
+                        </div>
+                    </article>
+                    <article class="workflow-item">
+                        <div class="workflow-number">3</div>
+                        <div>
+                            <h3>桌面整理</h3>
+                            <p>回到电脑继续归档、搜索、编辑和复盘，把零碎输入沉淀成长期知识。</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div class="visual-stack">
+                <img src="assets/showcase/windows-illustration.png" alt="闪念 Windows 桌面端插画，展示笔记列表和 AI 整理后的笔记详情">
+                <p class="visual-caption">桌面端支持浅色与深色界面，适合长时间整理和复盘。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section scenario-band" id="scenarios">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-kicker">SCENARIOS</div>
+                <h2 class="section-title">灵感来得不按时间表，闪念随时接住</h2>
+                <p class="section-desc">从个人思考到工作记录，从移动场景到桌面整理，闪念都围绕真实使用节奏设计。</p>
+            </div>
+            <div class="scenario-grid">
+                <article class="scenario-card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v12H4z"></path><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><path d="M4 12h16"></path></svg>
+                    <h3>会议复盘</h3>
+                    <p>记录讨论过程，自动整理重点、结论和待办，减少会后补笔记的负担。</p>
+                </article>
+                <article class="scenario-card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"></path></svg>
+                    <h3>腕上灵感</h3>
+                    <p>想法出现时先用 Apple Watch 说出来，之后再由 AI 帮你补标题、标签和结构。</p>
+                </article>
+                <article class="scenario-card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-1.5Z"></path><path d="M8 7h7"></path><path d="M8 11h7"></path></svg>
+                    <h3>阅读摘记</h3>
+                    <p>把读到的内容和自己的理解快速说下来，整理成可搜索的知识卡片。</p>
+                </article>
+                <article class="scenario-card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18"></path><path d="M5 8h14"></path><path d="M7 16h10"></path><path d="M8 3h8"></path><path d="M9 21h6"></path></svg>
+                    <h3>写作素材</h3>
+                    <p>把零散观点先收集起来，再在桌面端筛选、改写和延展成文章或方案。</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <div class="final-cta-inner">
+            <h2>现在就开始记录下一条闪念</h2>
+            <p>下载你常用设备上的版本。手机负责捕捉，电脑负责整理，让灵感从一句话自然长成一份清晰笔记。</p>
+            <a class="button button-primary" href="#downloads">查看多端下载</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="brand" aria-label="闪念">
+                <span class="brand-mark" aria-hidden="true"></span>
+                <span class="brand-copy">
+                    <strong>闪念</strong>
+                    <span>AI 语音笔记</span>
+                </span>
+            </div>
+            <div class="footer-links">
+                <a href="#downloads">下载</a>
+                <a href="#features">功能</a>
+                <a href="#workflow">工作流</a>
+                <span>© 2026 闪念. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const nav = document.getElementById("nav");
+        const recommendedTitle = document.getElementById("recommended-title");
+        const recommendedDesc = document.getElementById("recommended-desc");
+        const recommendedLink = document.getElementById("recommended-link");
+        const heroDownload = document.getElementById("hero-download");
+
+        const downloads = {
+            ios: {
+                title: "下载 iOS / iPadOS / Apple Watch 版",
+                desc: "当前设备适合前往 App Store 安装闪念移动端，并配合 Apple Watch 使用。",
+                href: "https://apps.apple.com/cn/app/%E9%97%AA%E5%BF%B5-ai%E8%AF%AD%E9%9F%B3%E7%AC%94%E8%AE%B0/id1397149726"
+            },
+            android: {
+                title: "下载 Android APK",
+                desc: "当前设备适合安装 Android APK 版本。",
+                href: "https://dl.northcity.top/1.0.5/ShanNianAndroid-v1.0-release.apk"
+            },
+            windows: {
+                title: "下载 Windows 版",
+                desc: "当前设备适合下载 Windows 安装程序。",
+                href: "https://dl.northcity.top/1.0.5/%E9%97%AA%E5%BF%B5%E6%A1%8C%E9%9D%A2%E7%AB%AF%20Setup%201.0.5.exe"
+            },
+            macos: {
+                title: "下载 macOS 版",
+                desc: "当前设备适合下载 macOS Apple Silicon DMG 安装包。",
+                href: "https://dl.northcity.top/1.0.5/%E9%97%AA%E5%BF%B5%E6%A1%8C%E9%9D%A2%E7%AB%AF-1.0.5-arm64.dmg"
+            },
+            linux: {
+                title: "下载 Linux 版",
+                desc: "当前设备适合下载 Debian arm64 安装包。",
+                href: "https://dl.northcity.top/1.0.5/shannian-desktop_1.0.5_arm64.deb"
+            }
+        };
+
+        function detectPlatform() {
+            const ua = navigator.userAgent || "";
+            const platform = navigator.platform || "";
+            if (/iPhone|iPad|iPod/i.test(ua)) return "ios";
+            if (/Android/i.test(ua)) return "android";
+            if (/Win/i.test(platform)) return "windows";
+            if (/Mac/i.test(platform)) return "macos";
+            if (/Linux/i.test(platform)) return "linux";
+            return null;
+        }
+
+        function applyRecommendation() {
+            const platform = detectPlatform();
+            if (!platform || !downloads[platform]) return;
+            const item = downloads[platform];
+            recommendedTitle.textContent = item.title;
+            recommendedDesc.textContent = item.desc;
+            recommendedLink.textContent = item.title;
+            recommendedLink.href = item.href;
+            recommendedLink.target = "_blank";
+            recommendedLink.rel = "noopener noreferrer";
+            heroDownload.href = item.href;
+            heroDownload.target = "_blank";
+            heroDownload.rel = "noopener noreferrer";
+
+            document.querySelectorAll(".download-card").forEach((card) => {
+                if (card.dataset.platform === platform) {
+                    card.style.borderColor = "rgba(39, 201, 93, 0.62)";
+                    card.style.boxShadow = "0 16px 40px rgba(39, 201, 93, 0.14)";
+                }
+            });
+        }
+
+        function syncNavState() {
+            if (window.scrollY > 10) {
+                nav.classList.add("scrolled");
+            } else {
+                nav.classList.remove("scrolled");
+            }
+        }
+
+        applyRecommendation();
+        syncNavState();
+        window.addEventListener("scroll", syncNavState, { passive: true });
+    </script>
+</body>
+</html>
