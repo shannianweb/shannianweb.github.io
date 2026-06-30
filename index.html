@@ -178,6 +178,13 @@
             transform: translateY(-1px);
         }
 
+        .button.disabled,
+        .button[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
         .button-primary {
             background: var(--green);
             color: #fff;
@@ -1030,7 +1037,7 @@
                         <p id="recommended-desc">我们会根据当前设备推荐合适版本，你也可以在右侧选择其它平台。</p>
                         <a class="button button-primary" id="recommended-link" href="#download-options">查看全部下载</a>
                     </div>
-                    <div class="download-note">提示：Apple Watch 随 iOS 版使用；Windows 为安装程序，macOS 为 Apple Silicon DMG，Linux 为 Debian arm64 包，Android 为 APK。</div>
+                    <div class="download-note">提示：Apple Watch 随 iOS 版使用；Windows 提供安装版 (Setup) 和便携版 (Portable)；macOS 为 Apple Silicon DMG；Linux 提供 DEB 和 AppImage。</div>
                 </aside>
 
                 <div class="download-grid" id="download-options">
@@ -1056,8 +1063,8 @@
                         </div>
                         <h3>Android</h3>
                         <p>APK 安装包，适合安卓手机快速记录语音、查看笔记卡片和同步工作内容。</p>
-                        <div class="download-meta"><span>APK</span><span>v1.0</span><span>手机</span></div>
-                        <a class="button button-secondary" href="https://dl.northcity.top/1.0.5/ShanNianAndroid-v1.0-release.apk" target="_blank" rel="noopener noreferrer">下载 Android APK</a>
+                        <div class="download-meta"><span>APK</span><span>手机</span></div>
+                        <a class="button button-secondary disabled" href="javascript:void(0)">即将上线</a>
                     </article>
 
                     <article class="download-card" data-platform="windows">
@@ -1069,8 +1076,9 @@
                         </div>
                         <h3>Windows</h3>
                         <p>在电脑上处理会议笔记、长文本整理、搜索归档，让桌面工作流更完整。</p>
-                        <div class="download-meta"><span>EXE</span><span>v1.0.5</span><span>Setup</span></div>
-                        <a class="button button-secondary" href="https://dl.northcity.top/1.0.5/%E9%97%AA%E5%BF%B5%E6%A1%8C%E9%9D%A2%E7%AB%AF%20Setup%201.0.5.exe" target="_blank" rel="noopener noreferrer">下载 Windows 版</a>
+                        <div class="download-meta"><span>EXE</span><span>v1.0.5</span></div>
+                        <a class="button button-secondary" href="https://dl.northcity.top/1.0.5/%E9%97%AA%E5%BF%B5%E6%A1%8C%E9%9D%A2%E7%AB%AF%20Setup%201.0.5.exe" target="_blank" rel="noopener noreferrer">下载安装版 (Setup)</a>
+                        <a class="button button-secondary" href="https://dl.northcity.top/1.0.5/%E9%97%AA%E5%BF%B5%E6%A1%8C%E9%9D%A2%E7%AB%AF%201.0.5.exe" target="_blank" rel="noopener noreferrer">下载便携版 (Portable)</a>
                     </article>
 
                     <article class="download-card" data-platform="macos">
@@ -1095,8 +1103,9 @@
                         </div>
                         <h3>Linux</h3>
                         <p>适合 Linux 工作站用户在本机整理笔记、沉淀想法和处理长篇语音内容。</p>
-                        <div class="download-meta"><span>DEB</span><span>v1.0.5</span><span>arm64</span></div>
-                        <a class="button button-secondary" href="https://dl.northcity.top/1.0.5/shannian-desktop_1.0.5_arm64.deb" target="_blank" rel="noopener noreferrer">下载 Linux 版</a>
+                        <div class="download-meta"><span>DEB / AppImage</span><span>v1.0.5</span><span>arm64</span></div>
+                        <a class="button button-secondary" href="https://dl.northcity.top/1.0.5/shannian-desktop_1.0.5_arm64.deb" target="_blank" rel="noopener noreferrer">下载 DEB 版</a>
+                        <a class="button button-secondary" href="https://dl.northcity.top/1.0.5/%E9%97%AA%E5%BF%B5%E6%A1%8C%E9%9D%A2%E7%AB%AF-1.0.5-arm64.AppImage" target="_blank" rel="noopener noreferrer">下载 AppImage 版</a>
                     </article>
                 </div>
             </div>
@@ -1300,12 +1309,12 @@
             },
             android: {
                 title: "下载 Android APK",
-                desc: "当前设备适合安装 Android APK 版本。",
-                href: "https://dl.northcity.top/1.0.5/ShanNianAndroid-v1.0-release.apk"
+                desc: "Android 版本即将上线，敬请期待。",
+                href: ""
             },
             windows: {
                 title: "下载 Windows 版",
-                desc: "当前设备适合下载 Windows 安装程序。",
+                desc: "当前设备适合下载 Windows 安装程序 (Setup) 或便携版 (Portable)。",
                 href: "https://dl.northcity.top/1.0.5/%E9%97%AA%E5%BF%B5%E6%A1%8C%E9%9D%A2%E7%AB%AF%20Setup%201.0.5.exe"
             },
             macos: {
@@ -1315,7 +1324,7 @@
             },
             linux: {
                 title: "下载 Linux 版",
-                desc: "当前设备适合下载 Debian arm64 安装包。",
+                desc: "当前设备适合下载 DEB 或 AppImage 安装包。",
                 href: "https://dl.northcity.top/1.0.5/shannian-desktop_1.0.5_arm64.deb"
             }
         };
@@ -1335,6 +1344,7 @@
             const platform = detectPlatform();
             if (!platform || !downloads[platform]) return;
             const item = downloads[platform];
+            if (!item.href) return;
             recommendedTitle.textContent = item.title;
             recommendedDesc.textContent = item.desc;
             recommendedLink.textContent = item.title;
