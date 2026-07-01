@@ -201,7 +201,7 @@
             margin: 0 auto;
             padding: 64px 0 76px;
             display: grid;
-            grid-template-columns: minmax(0, 0.92fr) minmax(440px, 1.08fr);
+            grid-template-columns: 45% 55%;
             gap: 50px;
             align-items: center;
         }
@@ -318,14 +318,17 @@
             min-height: 0;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
+            justify-content: center;
         }
 
-        .device-hero-image {
+        .hero-illustration {
             width: min(100%, 760px);
             height: auto;
-            margin-left: auto;
-            filter: drop-shadow(0 26px 44px rgba(16, 24, 40, 0.14));
+            object-fit: contain;
+            display: block;
+            border-radius: 0;
+            box-shadow: none;
+            background: transparent;
         }
 
         .desktop-frame {
@@ -996,6 +999,12 @@
                 margin-top: 8px;
             }
 
+            .hero-illustration {
+                width: 100%;
+                max-width: 520px;
+                margin: 0 auto;
+            }
+
             .desktop-frame {
                 width: 100%;
             }
@@ -1108,8 +1117,8 @@
                     </div>
                 </div>
 
-                <div class="showcase" aria-label="闪念应用截图">
-                    <img class="device-hero-image" src="assets/showcase/platform-illustration.png" alt="闪念全平台插画，展示 Apple Watch、手机、平板、桌面显示器、Windows 笔记本和 Linux 设备协同使用">
+                <div class="showcase" aria-label="闪念全平台插画">
+                    <img class="hero-illustration" src="assets/platform-hero.png" alt="闪念全平台插画">
                 </div>
             </section>
         </main>
