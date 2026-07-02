@@ -954,7 +954,7 @@
         }
 
         .pricing-card {
-            padding: 32px 24px;
+            padding: 36px 24px;
             border: 1px solid var(--line);
             border-radius: 12px;
             background: #fff;
@@ -966,8 +966,8 @@
 
         .pricing-card-featured {
             border-color: var(--green);
+            border-width: 2px;
             box-shadow: 0 12px 40px rgba(39, 201, 93, 0.18);
-            transform: scale(1.04);
         }
 
         .pricing-badge {
@@ -1018,13 +1018,17 @@
             padding: 0;
             margin: 0 0 24px;
             width: 100%;
+            text-align: left;
         }
 
         .pricing-features li {
-            padding: 6px 0;
+            padding: 7px 0;
             font-size: 14px;
             color: var(--ink-soft);
             border-bottom: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .pricing-features li:last-child {
@@ -1035,7 +1039,8 @@
             content: "✓";
             color: var(--green);
             font-weight: 700;
-            margin-right: 8px;
+            font-size: 14px;
+            flex-shrink: 0;
         }
 
         .pricing-card .button {
@@ -1059,9 +1064,6 @@
             .pricing-grid {
                 grid-template-columns: 1fr;
                 max-width: 380px;
-            }
-            .pricing-card-featured {
-                transform: none;
             }
         }
 
