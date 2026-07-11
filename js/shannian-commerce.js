@@ -47,14 +47,25 @@
   const syncAccountUi = () => {
     const trigger = document.getElementById('account-trigger');
     const summary = document.getElementById('account-summary');
-    if (trigger) trigger.textContent = state.user ? `${state.user.nickname || state.user.mobilePhoneNumber} · ${formatMembership(state.user)}` : '登录 / 注册';
+    const name = state.user?.nickname || state.user?.username || state.user?.mobilePhoneNumber || '闪念用户';
+    const avatarUrl = state.user?.avatarUrl || '';
+    const setAvatar = (container, image) => {
+      if (!container || !image) return;
+      container.hidden = !avatarUrl;
+      if (avatarUrl) { image.src = avatarUrl; image.alt = `${name}的头像`; }
+    };
+    if (trigger) {
+      trigger.querySelector('[data-account-label]').textContent = state.user ? name : '登录 / 注册';
+      setAvatar(trigger.querySelector('[data-account-avatar]'), trigger.querySelector('[data-account-avatar-image]'));
+    }
     if (summary) {
       if (!state.user) return;
-      summary.querySelector('[data-account-name]').textContent = state.user.nickname || state.user.mobilePhoneNumber;
+      summary.querySelector('[data-account-name]').textContent = name;
       summary.querySelector('[data-account-phone]').textContent = state.user.mobilePhoneNumber || state.user.username || '';
       const membership = summary.querySelector('[data-membership]');
       membership.textContent = formatMembership(state.user);
       membership.classList.toggle('free', !state.user.isPro);
+      setAvatar(summary.querySelector('[data-profile-avatar]'), summary.querySelector('[data-profile-avatar-image]'));
     }
   };
   const refreshUser = async () => {

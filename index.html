@@ -1096,7 +1096,7 @@
                 display: none;
             }
 
-            .nav-actions .button-secondary {
+            .nav-actions .button-secondary:not(.account-button) {
                 display: none;
             }
 
@@ -1200,7 +1200,10 @@
                     <li><a href="#scenarios">场景</a></li>
                 </ul>
                 <div class="nav-actions">
-                    <button class="button button-secondary account-button" id="account-trigger" type="button">登录 / 注册</button>
+                    <button class="button button-secondary account-button" id="account-trigger" type="button">
+                        <span class="account-avatar" data-account-avatar hidden><img data-account-avatar-image alt=""></span>
+                        <span data-account-label>登录 / 注册</span>
+                    </button>
                     <a class="button button-primary" href="#downloads">立即下载</a>
                 </div>
             </div>
@@ -1685,7 +1688,10 @@
                 <button class="commerce-close" type="button" data-close-modal="account-modal" aria-label="关闭">×</button>
             </div>
             <div class="account-summary" id="account-summary">
-                <div class="account-card"><div class="account-name" data-account-name></div><div class="account-meta" data-account-phone></div><span class="membership-chip" data-membership></span></div>
+                <div class="account-card account-profile">
+                    <span class="account-avatar account-avatar-large" data-profile-avatar hidden><img data-profile-avatar-image alt=""></span>
+                    <div><div class="account-name" data-account-name></div><div class="account-meta" data-account-phone></div><span class="membership-chip" data-membership></span></div>
+                </div>
                 <a class="button button-primary" href="#pricing" data-close-modal="account-modal">查看会员方案</a>
                 <button class="button button-secondary" type="button" id="logout-button">退出登录</button>
             </div>
