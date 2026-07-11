@@ -51,4 +51,4 @@
 .commerce-toast.success { background:#167c3e; }
 .pricing-live-note { min-height:20px; margin:12px auto 0; text-align:center; color:var(--muted); font-size:12px; }
 .pricing-amount .price.loading { color:var(--muted); font-size:19px; font-weight:700; }
-@media (max-width:700px) { .nav-actions .button-secondary:not(.account-button) { display:none; } .nav-actions { gap:7px; } .account-button { max-width:130px; padding:0 12px; } .commerce-dialog { padding:22px 18px; } }
+@media (max-width:700px) { .nav-actions > .button-primary { display:none; } .nav-actions { margin-left:auto; gap:7px; } .account-button { max-width:150px; padding:0 12px; } .commerce-dialog { padding:22px 18px; } }
