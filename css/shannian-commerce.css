@@ -1,0 +1,54 @@
+.account-button {
+  max-width: 188px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.commerce-modal[hidden], .commerce-toast[hidden] { display: none; }
+.commerce-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(16, 24, 40, 0.54);
+  backdrop-filter: blur(9px);
+}
+.commerce-dialog {
+  width: min(100%, 440px);
+  max-height: min(720px, calc(100vh - 40px));
+  overflow: auto;
+  padding: 28px;
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 28px 90px rgba(16,24,40,.28);
+}
+.commerce-dialog-head { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:22px; }
+.commerce-dialog-head h2 { font-size:24px; line-height:1.2; }
+.commerce-dialog-head p { margin-top:7px; color:var(--muted); font-size:14px; }
+.commerce-close { width:34px; height:34px; border:0; border-radius:50%; background:var(--mist); color:var(--ink); cursor:pointer; font-size:22px; line-height:1; }
+.auth-tabs { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; padding:4px; margin-bottom:20px; border-radius:10px; background:var(--mist); }
+.auth-tab { min-height:38px; border:0; border-radius:7px; background:transparent; color:var(--muted); cursor:pointer; font-size:13px; font-weight:700; }
+.auth-tab.is-active { color:var(--ink); background:#fff; box-shadow:0 3px 9px rgba(16,24,40,.08); }
+.auth-form[hidden] { display:none; }
+.auth-form { display:grid; gap:14px; }
+.commerce-field { display:grid; gap:7px; color:var(--ink-soft); font-size:13px; font-weight:700; }
+.commerce-field input { min-height:46px; width:100%; padding:0 13px; border:1px solid var(--line); border-radius:9px; outline:none; color:var(--ink); font:inherit; }
+.commerce-field input:focus { border-color:var(--green); box-shadow:0 0 0 3px rgba(39,201,93,.13); }
+.code-row { display:grid; grid-template-columns:1fr auto; gap:9px; }
+.send-code { min-height:46px; padding:0 12px; }
+.auth-note { margin:2px 0 0; color:var(--muted); font-size:12px; line-height:1.55; }
+.account-summary { display:grid; gap:15px; }
+.account-card { padding:16px; border:1px solid var(--line); border-radius:12px; background:linear-gradient(135deg,#f8fffb,#f7fbff); }
+.account-name { font-weight:800; font-size:17px; }
+.account-meta { margin-top:4px; color:var(--muted); font-size:13px; }
+.membership-chip { display:inline-flex; margin-top:12px; padding:5px 9px; border-radius:999px; background:#e7f8ed; color:var(--green-strong); font-size:12px; font-weight:800; }
+.membership-chip.free { background:#eef2f6; color:#667085; }
+.commerce-toast { position:fixed; z-index:100; left:50%; bottom:24px; transform:translateX(-50%); width:min(calc(100% - 32px), 430px); padding:13px 16px; border-radius:12px; color:#fff; background:#1f2937; box-shadow:0 16px 36px rgba(16,24,40,.24); font-size:14px; }
+.commerce-toast.error { background:#b42318; }
+.commerce-toast.success { background:#167c3e; }
+.pricing-live-note { min-height:20px; margin:12px auto 0; text-align:center; color:var(--muted); font-size:12px; }
+.pricing-amount .price.loading { color:var(--muted); font-size:19px; font-weight:700; }
+@media (max-width:700px) { .nav-actions .button-secondary:not(.account-button) { display:none; } .nav-actions { gap:7px; } .account-button { max-width:130px; padding:0 12px; } .commerce-dialog { padding:22px 18px; } }

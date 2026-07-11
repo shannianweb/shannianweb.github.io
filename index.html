@@ -12,6 +12,9 @@
     <meta name="theme-color" content="#27c95d">
     <link rel="icon" type="image/png" href="assets/icons/Appicon.png">
     <link rel="apple-touch-icon" href="assets/icons/Appicon.png">
+    <link rel="stylesheet" href="css/shannian-commerce.css">
+    <script>window.SHANNIAN_API_BASE = 'https://waffo-webhook.chenxi19930623.workers.dev';</script>
+    <script src="js/shannian-commerce.js" defer></script>
     <style>
         :root {
             --green: #27c95d;
@@ -1197,7 +1200,7 @@
                     <li><a href="#scenarios">场景</a></li>
                 </ul>
                 <div class="nav-actions">
-                    <a class="button button-secondary" href="#features">了解功能</a>
+                    <button class="button button-secondary account-button" id="account-trigger" type="button">登录 / 注册</button>
                     <a class="button button-primary" href="#downloads">立即下载</a>
                 </div>
             </div>
@@ -1410,25 +1413,25 @@
             <div class="section-header">
                 <div class="section-kicker">PRICING</div>
                 <h2 class="section-title">选择适合你的方案</h2>
-                <p class="section-desc">闪念通过 App Store 和 Google Play 提供自动续期订阅。订阅后可在 iPhone、iPad、Apple Watch、Android、Mac、Windows、Linux 全平台使用。</p>
+                <p class="section-desc">通过 Waffo 安全收银台完成支付，会员权益会自动同步到 iPhone、iPad、Apple Watch、Android、Mac、Windows 和 Linux。</p>
             </div>
             <div class="pricing-grid">
                 <article class="pricing-card">
                     <div class="pricing-badge">月付</div>
                     <h3>月度订阅</h3>
-                    <div class="pricing-amount"><span class="price">¥18</span><span class="period">/月</span></div>
+                    <div class="pricing-amount" data-price-plan="monthly"><span class="price loading" data-price>加载价格…</span><span class="period" data-period>/月</span></div>
                     <ul class="pricing-features">
                         <li>无限语音记录</li>
                         <li>AI 智能总结</li>
                         <li>待办自动提取</li>
                         <li>全平台同步</li>
                     </ul>
-                    <a class="button button-secondary" href="https://apps.apple.com/cn/app/%E9%97%AA%E5%BF%B5-ai%E8%AF%AD%E9%9F%B3%E7%AC%94%E8%AE%B0/id1397149726" target="_blank" rel="noopener noreferrer">在 App Store 订阅</a>
+                    <button class="button button-secondary" type="button" data-plan-id="monthly">安全购买</button>
                 </article>
                 <article class="pricing-card pricing-card-featured">
                     <div class="pricing-badge pricing-badge-popular">推荐</div>
                     <h3>年度订阅</h3>
-                    <div class="pricing-amount"><span class="price">¥128</span><span class="period">/年</span></div>
+                    <div class="pricing-amount" data-price-plan="yearly"><span class="price loading" data-price>加载价格…</span><span class="period" data-period>/年</span></div>
                     <ul class="pricing-features">
                         <li>无限语音记录</li>
                         <li>AI 智能总结</li>
@@ -1436,13 +1439,13 @@
                         <li>全平台同步</li>
                         <li>优先功能更新</li>
                     </ul>
-                    <a class="button button-primary" href="https://apps.apple.com/cn/app/%E9%97%AA%E5%BF%B5-ai%E8%AF%AD%E9%9F%B3%E7%AC%94%E8%AE%B0/id1397149726" target="_blank" rel="noopener noreferrer">在 App Store 订阅</a>
+                    <button class="button button-primary" type="button" data-plan-id="yearly">安全购买</button>
                 </article>
                 <article class="pricing-card">
                     <div class="pricing-badge pricing-badge-popular">早鸟价</div>
                     <h3>终身买断</h3>
-                    <div class="pricing-amount"><span class="price">¥188</span><span class="period">一次性</span></div>
-                    <div class="pricing-original">原价 ¥398</div>
+                    <div class="pricing-amount" data-price-plan="lifetime_early_bird"><span class="price loading" data-price>加载价格…</span><span class="period" data-period>一次性</span></div>
+                    <div class="pricing-original">限时早鸟优惠，实际价格以收银台为准</div>
                     <ul class="pricing-features">
                         <li>无限语音记录</li>
                         <li>AI 智能总结</li>
@@ -1450,10 +1453,11 @@
                         <li>全平台同步</li>
                         <li>优先功能更新</li>
                     </ul>
-                    <a class="button button-secondary" href="https://apps.apple.com/cn/app/%E9%97%AA%E5%BF%B5-ai%E8%AF%AD%E9%9F%B3%E7%AC%94%E8%AE%B0/id1397149726" target="_blank" rel="noopener noreferrer">在 App Store 购买</a>
+                    <button class="button button-secondary" type="button" data-plan-id="lifetime_early_bird">安全购买</button>
                 </article>
             </div>
-            <p class="pricing-footnote">订阅价格以 App Store / Google Play 显示为准。自动续期订阅可随时取消。详见<a href="https://www.northcity.top/ideasnap-subscription-agreement/" target="_blank" rel="noopener noreferrer">服务条款</a>。</p>
+            <p class="pricing-live-note" id="pricing-live-note">正在加载 Waffo 正式环境价格…</p>
+            <p class="pricing-footnote">通过 Waffo 安全收银台完成支付。自动续期订阅可随时取消；税费与最终金额以结算页为准。详见<a href="https://www.northcity.top/ideasnap-subscription-agreement/" target="_blank" rel="noopener noreferrer">服务条款</a>。</p>
         </div>
     </section>
 
@@ -1642,6 +1646,52 @@
             </div>
         </div>
     </footer>
+
+    <div class="commerce-modal" id="auth-modal" hidden aria-modal="true" role="dialog" aria-labelledby="auth-title">
+        <div class="commerce-dialog">
+            <div class="commerce-dialog-head">
+                <div><h2 id="auth-title">登录闪念账号</h2><p>登录后即可在网站安全购买，会员自动同步到所有设备。</p></div>
+                <button class="commerce-close" type="button" data-close-modal="auth-modal" aria-label="关闭">×</button>
+            </div>
+            <div class="auth-tabs" role="tablist">
+                <button class="auth-tab is-active" type="button" data-auth-tab="sms">短信登录</button>
+                <button class="auth-tab" type="button" data-auth-tab="password">密码登录</button>
+                <button class="auth-tab" type="button" data-auth-tab="register">注册账号</button>
+            </div>
+            <form class="auth-form" data-auth-form="sms">
+                <label class="commerce-field">手机号<input name="phone" inputmode="numeric" autocomplete="tel" placeholder="请输入 11 位手机号" required></label>
+                <label class="commerce-field">短信验证码<div class="code-row"><input name="smsCode" inputmode="numeric" autocomplete="one-time-code" placeholder="6 位验证码" required><button class="button button-secondary send-code" type="button" data-send-sms>发送验证码</button></div></label>
+                <button class="button button-primary" type="submit">登录 / 自动注册</button>
+                <p class="auth-note">未注册手机号会自动创建闪念账号；与桌面端、Android 使用同一账号和会员权益。</p>
+            </form>
+            <form class="auth-form" data-auth-form="password" hidden>
+                <label class="commerce-field">手机号<input name="phone" inputmode="numeric" autocomplete="tel" placeholder="请输入手机号" required></label>
+                <label class="commerce-field">密码<input name="password" type="password" autocomplete="current-password" placeholder="6-16 位密码" required></label>
+                <button class="button button-primary" type="submit">登录</button>
+            </form>
+            <form class="auth-form" data-auth-form="register" hidden>
+                <label class="commerce-field">手机号<input name="phone" inputmode="numeric" autocomplete="tel" placeholder="请输入 11 位手机号" required></label>
+                <label class="commerce-field">短信验证码<div class="code-row"><input name="smsCode" inputmode="numeric" autocomplete="one-time-code" placeholder="6 位验证码" required><button class="button button-secondary send-code" type="button" data-send-sms>发送验证码</button></div></label>
+                <label class="commerce-field">设置密码<input name="password" type="password" autocomplete="new-password" placeholder="6-16 位密码" required></label>
+                <button class="button button-primary" type="submit">注册并登录</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="commerce-modal" id="account-modal" hidden aria-modal="true" role="dialog" aria-labelledby="account-title">
+        <div class="commerce-dialog">
+            <div class="commerce-dialog-head">
+                <div><h2 id="account-title">我的闪念账号</h2><p>会员权益在网站、桌面端和移动端自动同步。</p></div>
+                <button class="commerce-close" type="button" data-close-modal="account-modal" aria-label="关闭">×</button>
+            </div>
+            <div class="account-summary" id="account-summary">
+                <div class="account-card"><div class="account-name" data-account-name></div><div class="account-meta" data-account-phone></div><span class="membership-chip" data-membership></span></div>
+                <a class="button button-primary" href="#pricing" data-close-modal="account-modal">查看会员方案</a>
+                <button class="button button-secondary" type="button" id="logout-button">退出登录</button>
+            </div>
+        </div>
+    </div>
+    <div class="commerce-toast" hidden aria-live="polite"></div>
 
     <script>
         const nav = document.getElementById("nav");

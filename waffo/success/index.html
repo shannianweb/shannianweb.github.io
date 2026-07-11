@@ -4,6 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>支付成功 - 闪念</title>
+  <script>window.SHANNIAN_API_BASE = 'https://waffo-webhook.chenxi19930623.workers.dev';</script>
+  <script src="../../js/shannian-commerce.js" defer></script>
+  <script src="../../js/waffo-success.js" defer></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -234,13 +237,14 @@
     <h1>支付成功</h1>
     <p class="subtitle">感谢你支持闪念会员 🎉<br>你的支持让产品能持续变得更好。</p>
 
-    <div class="auto-note">
+    <div class="auto-note" id="payment-status">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="10" />
         <polyline points="12 6 12 12 16 14" />
       </svg>
-      会员将在几秒内自动生效，请返回 App 查看
+      正在确认会员权益…
     </div>
+    <p class="subtitle" id="payment-detail" style="font-size: 13px; margin-top: 12px;">支付通知到达后，网站会自动刷新你的会员状态。</p>
 
     <hr class="divider" />
 
@@ -254,7 +258,7 @@
         会员未自动生效？
       </div>
       <p class="help-desc">
-        请尝试在 App 内点击「验证付款」或重新登录。如果仍未生效，请通过以下方式联系我们，我们会在 <strong>24 小时内</strong>为你处理。
+        请先返回官网并登录付款时使用的同一账号。网站会自动验单；如果仍未生效，请通过以下方式联系我们，我们会在 <strong>24 小时内</strong>为你处理。
       </p>
       <div class="contact-list">
         <div class="contact-item" onclick="copyText(this)" data-copy="shine5211314">
