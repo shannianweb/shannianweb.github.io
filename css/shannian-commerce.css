@@ -1,12 +1,53 @@
 .account-button {
-  max-width: 188px;
-  overflow: hidden;
+  max-width: 220px;
+  overflow: visible;
   text-overflow: ellipsis;
+  gap: 10px;
+  padding-left: 10px;
 }
-.account-avatar { display:inline-grid; width:24px; height:24px; place-items:center; flex:0 0 auto; overflow:hidden; border-radius:50%; background:var(--mist); color:var(--green-strong); font-size:11px; font-weight:800; }
-.account-avatar img { width:100%; height:100%; object-fit:cover; }
-.account-avatar-large { width:48px; height:48px; }
-.account-profile { display:flex; align-items:center; gap:12px; text-align:left; }
+.account-avatar {
+  display: inline-grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--mist);
+  color: var(--green-strong);
+  font-size: 11px;
+  font-weight: 800;
+  border: 1px solid rgba(217, 227, 223, 0.95);
+  box-sizing: border-box;
+  line-height: 0;
+}
+.account-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 7px;
+}
+.account-avatar.is-photo {
+  border-radius: 50%;
+}
+.account-avatar.is-photo img {
+  border-radius: 50%;
+}
+.account-avatar-large {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+}
+.account-avatar-large.is-photo {
+  border-radius: 50%;
+}
+.account-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
 
 .commerce-modal[hidden], .commerce-toast[hidden] { display: none; }
 .commerce-modal {

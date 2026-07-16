@@ -49,10 +49,20 @@
     const summary = document.getElementById('account-summary');
     const name = state.user?.nickname || state.user?.username || state.user?.mobilePhoneNumber || '闪念用户';
     const avatarUrl = state.user?.avatarUrl || '';
-    const setAvatar = (container, image) => {
+    const defaultAvatar = (trigger?.dataset.defaultAvatar)
+      || (document.querySelector('.brand-mark')?.getAttribute('src'))
+      || 'assets/icons/Appicon.png';
+    const setAvatar = (container, image, { allowHide = false } = {}) => {
       if (!container || !image) return;
-      container.hidden = !avatarUrl;
-      if (avatarUrl) { image.src = avatarUrl; image.alt = `${name}的头像`; }
+      const hasPhoto = Boolean(avatarUrl);
+      if (allowHide && !state.user) {
+        container.hidden = true;
+        return;
+      }
+      container.hidden = false;
+      container.classList.toggle('is-photo', hasPhoto);
+      image.src = hasPhoto ? avatarUrl : defaultAvatar;
+      image.alt = hasPhoto ? `${name}的头像` : '闪念';
     };
     if (trigger) {
       trigger.querySelector('[data-account-label]').textContent = state.user ? name : '登录 / 注册';
