@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>关于闪念 - IdeaSnap</title>
-    <meta name="description" content="闪念是独立开发者北城打造的 AI 语音笔记。2018 年起持续更新，曾获 App Store 编辑推荐。">
+    <title data-i18n="about.pageTitle">关于闪念 - IdeaSnap</title>
+    <meta name="description" data-i18n-content="about.pageDesc" content="闪念是独立开发者北城打造的 AI 语音笔记。2018 年起持续更新，曾获 App Store 编辑推荐。">
     <meta name="theme-color" content="#27c95d">
     <link rel="icon" type="image/png" href="../assets/icons/Appicon.png">
     <link rel="apple-touch-icon" href="../assets/icons/Appicon.png">
     <link rel="stylesheet" href="../css/shannian-site.css">
     <script src="../js/site-nav.js" defer></script>
+    <script src="../js/i18n.js" defer></script>
 </head>
 <body>
     <div class="site-shell">
@@ -18,28 +19,29 @@
                 <a class="brand" href="../" aria-label="闪念首页">
                     <img class="brand-mark" src="../assets/icons/Appicon.png" alt="" aria-hidden="true">
                     <span class="brand-copy">
-                        <strong>闪念</strong>
-                        <span>AI 语音笔记</span>
+                        <strong data-i18n="nav.brand">闪念</strong>
+                        <span data-i18n="nav.tagline">AI 语音笔记</span>
                     </span>
                 </a>
                 <ul class="nav-links" aria-label="主导航">
-                    <li><a href="../#downloads">下载</a></li>
-                    <li><a href="../#features">功能</a></li>
-                    <li><a href="../#pricing">定价</a></li>
-                    <li><a href="../about/">关于</a></li>
+                    <li><a data-i18n="nav.download" href="../#downloads">下载</a></li>
+                    <li><a data-i18n="nav.features" href="../#features">功能</a></li>
+                    <li><a data-i18n="nav.pricing" href="../#pricing">定价</a></li>
+                    <li><a data-i18n="nav.about" href="../about/">关于</a></li>
                 </ul>
                 <div class="nav-actions">
-                    <a class="button button-secondary" href="../contact/">联系</a>
-                    <a class="button button-primary" href="../#downloads">立即下载</a>
+                    <button class="lang-switch" id="lang-switch" type="button" title="切换到 English">EN</button>
+                    <a class="button button-secondary" data-i18n="footer.contact" href="../contact/">联系</a>
+                    <a class="button button-primary" data-i18n="nav.install" href="../#downloads">立即下载</a>
                 </div>
             </div>
         </nav>
         <main>
 
             <header class="page-hero">
-                <div class="section-kicker">关于</div>
-                <h1>关于闪念</h1>
-                <p>闪念（IdeaSnap）是一款 AI 语音笔记，帮助你记录一闪而过的灵感，并自动整理成可继续推进的内容。</p>
+                <div class="section-kicker" data-i18n="about.kicker">关于</div>
+                <h1 data-i18n="about.title">关于闪念</h1>
+                <p data-i18n="about.desc">闪念（IdeaSnap）是一款 AI 语音笔记，帮助你记录一闪而过的灵感，并自动整理成可继续推进的内容。</p>
             </header>
             <section class="section" style="border-top:0;padding-top:24px;">
                 <div class="section-inner">
@@ -47,29 +49,29 @@
                         <img src="../assets/showcase/platform-hero.webp" alt="闪念产品全貌">
                     </div>
                     <div class="page-prose">
-                    <h2>从哪来</h2>
-                    <p>闪念大约从 2018 年上线，一直保持稳定更新：每个月至少一个小版本，每季度一个大版本。2025 年 11 月，闪念获得 App Store 编辑推荐；2026 年 1 月，3.5 版本上线 AI 总结能力。</p>
-                    <p>站点展示评分约 4.6 分、595 个评分，并曾进入效率工具前列。对我们来说，更重要的是有人真正在用它解决问题。</p>
-                    <h2>谁在做</h2>
-                    <p>闪念由独立开发者北城打造与维护。不是为了堆功能，而是希望做出真正有人用、能长期维护的产品：长期主义、真实用户、隐私优先。</p>
-                    <h2>我们在意什么</h2>
+                    <h2 data-i18n="about.section1.title">从哪来</h2>
+                    <p data-i18n="about.section1.p1">闪念大约从 2018 年上线，一直保持稳定更新：每个月至少一个小版本，每季度一个大版本。2025 年 11 月，闪念获得 App Store 编辑推荐；2026 年 1 月，3.5 版本上线 AI 总结能力。</p>
+                    <p data-i18n="about.section1.p2">站点展示评分约 4.6 分、595 个评分，并曾进入效率工具前列。对我们来说，更重要的是有人真正在用它解决问题。</p>
+                    <h2 data-i18n="about.section2.title">谁在做</h2>
+                    <p data-i18n="about.section2.p1">闪念由独立开发者北城打造与维护。不是为了堆功能，而是希望做出真正有人用、能长期维护的产品：长期主义、真实用户、隐私优先。</p>
+                    <h2 data-i18n="about.section3.title">我们在意什么</h2>
                     <ul>
-                        <li>持续更新，让产品保持活力</li>
-                        <li>注重细节与本地化（支持约 15 种语言）</li>
-                        <li>隐私优先，不收集不必要的数据</li>
-                        <li>专注语音捕捉与 AI 整理，拒绝 All-in-one</li>
+                        <li data-i18n="about.section3.item1">持续更新，让产品保持活力</li>
+                        <li data-i18n="about.section3.item2">注重细节与本地化（支持约 15 种语言）</li>
+                        <li data-i18n="about.section3.item3">隐私优先，不收集不必要的数据</li>
+                        <li data-i18n="about.section3.item4">专注语音捕捉与 AI 整理，拒绝 All-in-one</li>
                     </ul>
                     <div class="log-links" style="margin-top:28px;">
                         <a href="https://www.northcity.top/logs/2025-11-15-shannian-featured/" target="_blank" rel="noopener noreferrer">
-                            <strong>闪念获得 App Store 编辑推荐的背后</strong>
-                            <span>北城开发日志 · 2025.11.15</span>
+                            <strong data-i18n="about.log1.title">闪念获得 App Store 编辑推荐的背后</strong>
+                            <span data-i18n="about.log1.meta">北城开发日志 · 2025.11.15</span>
                         </a>
                         <a href="https://www.northcity.top/logs/2026-01-15-shannian-3-5-update/" target="_blank" rel="noopener noreferrer">
-                            <strong>闪念 3.5 更新：AI 总结功能上线</strong>
-                            <span>北城开发日志 · 2026.01.15</span>
+                            <strong data-i18n="about.log2.title">闪念 3.5 更新：AI 总结功能上线</strong>
+                            <span data-i18n="about.log2.meta">北城开发日志 · 2026.01.15</span>
                         </a>
                         <a href="https://www.northcity.top/about/" target="_blank" rel="noopener noreferrer">
-                            <strong>更多关于开发者北城</strong>
+                            <strong data-i18n="about.log3">更多关于开发者北城</strong>
                             <span>northcity.top/about</span>
                         </a>
                     </div>
@@ -86,41 +88,41 @@
                     <a class="brand" href="../" aria-label="闪念">
                         <img class="brand-mark" src="../assets/icons/Appicon.png" alt="" aria-hidden="true">
                         <span class="brand-copy">
-                            <strong>闪念</strong>
-                            <span>AI 语音笔记</span>
+                            <strong data-i18n="nav.brand">闪念</strong>
+                            <span data-i18n="nav.tagline">AI 语音笔记</span>
                         </span>
                     </a>
-                    <p>开口记录，AI 自动整理。由独立开发者北城打造。</p>
+                    <p data-i18n="footer.desc">开口记录，AI 自动整理。由独立开发者北城打造。</p>
                 </div>
                 <div class="footer-col">
-                    <h4>产品</h4>
-                    <a href="../desktop/">桌面端</a>
-                    <a href="../mobile/">手机端</a>
-                    <a href="../watch/">手表端</a>
-                    <a href="../integrations/">联动与 AI</a>
+                    <h4 data-i18n="footer.products">产品</h4>
+                    <a data-i18n="footer.desktop" href="../desktop/">桌面端</a>
+                    <a data-i18n="footer.mobile" href="../mobile/">手机端</a>
+                    <a data-i18n="footer.watch" href="../watch/">手表端</a>
+                    <a data-i18n="footer.integrations" href="../integrations/">联动与 AI</a>
                 </div>
                 <div class="footer-col">
-                    <h4>资源</h4>
-                    <a href="../download/">下载与安装</a>
-                    <a href="../help/">帮助</a>
-                    <a href="../#pricing">定价</a>
-                    <a href="https://www.northcity.top/logs/2025-11-15-shannian-featured/" target="_blank" rel="noopener noreferrer">更新动态</a>
+                    <h4 data-i18n="footer.resources">资源</h4>
+                    <a data-i18n="footer.download" href="../download/">下载与安装</a>
+                    <a data-i18n="footer.help" href="../help/">帮助</a>
+                    <a data-i18n="footer.pricing" href="../#pricing">定价</a>
+                    <a data-i18n="footer.changelog" href="https://www.northcity.top/logs/2025-11-15-shannian-featured/" target="_blank" rel="noopener noreferrer">更新动态</a>
                 </div>
                 <div class="footer-col">
-                    <h4>关于</h4>
-                    <a href="../about/">关于闪念</a>
-                    <a href="../contact/">联系我们</a>
-                    <a href="https://www.northcity.top/about/" target="_blank" rel="noopener noreferrer">关于北城</a>
+                    <h4 data-i18n="footer.about">关于</h4>
+                    <a data-i18n="footer.about-us" href="../about/">关于闪念</a>
+                    <a data-i18n="footer.contact" href="../contact/">联系我们</a>
+                    <a data-i18n="footer.beicheng" href="https://www.northcity.top/about/" target="_blank" rel="noopener noreferrer">关于北城</a>
                 </div>
                 <div class="footer-col">
-                    <h4>法律</h4>
-                    <a href="https://www.northcity.top/ideasnap-subscription-agreement/" target="_blank" rel="noopener noreferrer">服务条款</a>
-                    <a href="https://www.northcity.top/ideasnap-privacy-policy/" target="_blank" rel="noopener noreferrer">隐私政策</a>
+                    <h4 data-i18n="footer.legal">法律</h4>
+                    <a data-i18n="footer.tos" href="https://www.northcity.top/ideasnap-subscription-agreement/" target="_blank" rel="noopener noreferrer">服务条款</a>
+                    <a data-i18n="footer.privacy" href="https://www.northcity.top/ideasnap-privacy-policy/" target="_blank" rel="noopener noreferrer">隐私政策</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <span>© 2026 闪念 IdeaSnap. All rights reserved.</span>
-                <span>由 <a href="https://www.northcity.top/" target="_blank" rel="noopener noreferrer">独立开发者北城</a> 打造</span>
+                <span data-i18n="footer.copyright">© 2026 闪念 IdeaSnap. All rights reserved.</span>
+                <span data-i18n-html="footer.made-by.html">由 <a href="https://www.northcity.top/" target="_blank" rel="noopener noreferrer">独立开发者北城</a> 打造</span>
             </div>
         </div>
     </footer>

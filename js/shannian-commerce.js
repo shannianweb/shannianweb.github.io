@@ -44,10 +44,11 @@
     const date = user.proExpireDate ? ` · 至 ${new Date(user.proExpireDate).toLocaleDateString('zh-CN')}` : '';
     return `${names[user.proType] || '会员'}${date}`;
   };
+  const loginLabel = () => (window.i18n ? window.i18n.t('nav.login') : '登录 / 注册');
   const syncAccountUi = () => {
     const trigger = document.getElementById('account-trigger');
     const summary = document.getElementById('account-summary');
-    const name = state.user?.nickname || state.user?.username || state.user?.mobilePhoneNumber || '闪念用户';
+    const name = state.user?.nickname || state.user?.username || state.user?.mobilePhoneNumber || (window.i18n ? window.i18n.t('nav.brand') : '闪念用户');
     const avatarUrl = state.user?.avatarUrl || '';
     const defaultAvatar = (trigger?.dataset.defaultAvatar)
       || (document.querySelector('.brand-mark')?.getAttribute('src'))
@@ -65,7 +66,7 @@
       image.alt = hasPhoto ? `${name}的头像` : '闪念';
     };
     if (trigger) {
-      trigger.querySelector('[data-account-label]').textContent = state.user ? name : '登录 / 注册';
+      trigger.querySelector('[data-account-label]').textContent = state.user ? name : loginLabel();
       setAvatar(trigger.querySelector('[data-account-avatar]'), trigger.querySelector('[data-account-avatar-image]'));
     }
     if (summary) {
@@ -165,5 +166,6 @@
     document.getElementById('logout-button')?.addEventListener('click', () => { clearSession(); closeModal('account-modal'); toast('已安全退出登录'); });
   };
   document.addEventListener('DOMContentLoaded', async () => { bind(); syncAccountUi(); await refreshUser(); await loadPlans(); });
+  document.addEventListener('i18nchange', syncAccountUi);
   window.ShanNianWeb = { api, getSession, saveSession, refreshUser, toast, PENDING_PAYMENT_KEY };
 })();

@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>手表端 - 闪念 IdeaSnap</title>
-    <meta name="description" content="闪念 Apple Watch 端支持抬腕录音、腕上控制与笔记卡片。不方便拿手机时，也能先接住灵感。">
+    <title data-i18n="watch-page.pageTitle">手表端 - 闪念 IdeaSnap</title>
+    <meta name="description" content="闪念 Apple Watch 端支持抬腕录音、腕上控制与笔记卡片。不方便拿手机时，也能先接住灵感。" data-i18n-content="watch-page.pageDesc">
     <meta name="theme-color" content="#27c95d">
     <link rel="icon" type="image/png" href="../assets/icons/Appicon.png">
     <link rel="apple-touch-icon" href="../assets/icons/Appicon.png">
     <link rel="stylesheet" href="../css/shannian-site.css">
     <script src="../js/site-nav.js" defer></script>
+    <script src="../js/i18n.js" defer></script>
 </head>
 <body>
     <div class="site-shell">
@@ -18,31 +19,32 @@
                 <a class="brand" href="../" aria-label="闪念首页">
                     <img class="brand-mark" src="../assets/icons/Appicon.png" alt="" aria-hidden="true">
                     <span class="brand-copy">
-                        <strong>闪念</strong>
-                        <span>AI 语音笔记</span>
+                        <strong data-i18n="nav.brand">闪念</strong>
+                        <span data-i18n="nav.tagline">AI 语音笔记</span>
                     </span>
                 </a>
                 <ul class="nav-links" aria-label="主导航">
-                    <li><a href="../#downloads">下载</a></li>
-                    <li><a href="../#features">功能</a></li>
-                    <li><a href="../#pricing">定价</a></li>
-                    <li><a href="../about/">关于</a></li>
+                    <li><a href="../#downloads" data-i18n="nav.download">下载</a></li>
+                    <li><a href="../#features" data-i18n="nav.features">功能</a></li>
+                    <li><a href="../#pricing" data-i18n="nav.pricing">定价</a></li>
+                    <li><a href="../about/" data-i18n="nav.about">关于</a></li>
                 </ul>
                 <div class="nav-actions">
+                    <button class="lang-switch" id="lang-switch" type="button" title="切换到 English">EN</button>
                     <a class="button button-secondary" href="../contact/">联系</a>
-                    <a class="button button-primary" href="../#downloads">立即下载</a>
+                    <a class="button button-primary" href="../#downloads" data-i18n="nav.install">立即下载</a>
                 </div>
             </div>
         </nav>
         <main>
 
             <header class="page-hero">
-                <div class="section-kicker">产品 · 手表端</div>
-                <h1>抬腕就能记，灵感不等手机</h1>
-                <p>Apple Watch 端支持准备录音、录音中控制与查看笔记卡片。走路、运动、临时会议时，先把手头的想法留下来。</p>
+                <div class="section-kicker" data-i18n="watch-page.kicker">产品 · 手表端</div>
+                <h1 data-i18n="watch-page.title">抬腕就能记，灵感不等手机</h1>
+                <p data-i18n="watch-page.desc">Apple Watch 端支持准备录音、录音中控制与查看笔记卡片。走路、运动、临时会议时，先把手头的想法留下来。</p>
                 <div class="page-actions">
-                    <a class="button button-primary" href="https://apps.apple.com/cn/app/%E9%97%AA%E5%BF%B5-ai%E8%AF%AD%E9%9F%B3%E7%AC%94%E8%AE%B0/id1397149726" target="_blank" rel="noopener noreferrer">随 iOS 版安装</a>
-                    <a class="button button-secondary" href="../mobile/">了解手机端</a>
+                    <a class="button button-primary" href="https://apps.apple.com/cn/app/%E9%97%AA%E5%BF%B5-ai%E8%AF%AD%E9%9F%B3%E7%AC%94%E8%AE%B0/id1397149726" target="_blank" rel="noopener noreferrer" data-i18n="watch-page.cta.install">随 iOS 版安装</a>
+                    <a class="button button-secondary" href="../mobile/" data-i18n="watch-page.cta.mobile">了解手机端</a>
                 </div>
             </header>
             <section class="section" style="border-top:0;padding-top:24px;">
@@ -52,16 +54,16 @@
                     </div>
                     <div class="visual-stack" style="margin-bottom:48px;">
                         <img src="../assets/showcase/watch-device.webp" alt="闪念 Apple Watch 设备展示">
-                        <p class="visual-caption">腕上记录，灵感不落地</p>
+                        <p class="visual-caption" data-i18n="watch-page.caption">腕上记录，灵感不落地</p>
                     </div>
                     <div class="page-prose">
-                        <h2>腕上工作流</h2>
+                        <h2 data-i18n="watch-page.section.title">腕上工作流</h2>
                         <ul>
-                            <li>抬腕准备录音，轻点开始</li>
-                            <li>录音中可暂停或结束</li>
-                            <li>回到手机或桌面后，由 AI 继续转写与整理</li>
+                            <li data-i18n="watch-page.section.item1">抬腕准备录音，轻点开始</li>
+                            <li data-i18n="watch-page.section.item2">录音中可暂停或结束</li>
+                            <li data-i18n="watch-page.section.item3">回到手机或桌面后，由 AI 继续转写与整理</li>
                         </ul>
-                        <p style="margin-top:20px;">手表端随 iOS 版提供，安装闪念 iPhone 应用后即可在 Apple Watch 上使用。</p>
+                        <p style="margin-top:20px;" data-i18n="watch-page.note">手表端随 iOS 版提供，安装闪念 iPhone 应用后即可在 Apple Watch 上使用。</p>
                     </div>
                 </div>
             </section>
@@ -75,41 +77,41 @@
                     <a class="brand" href="../" aria-label="闪念">
                         <img class="brand-mark" src="../assets/icons/Appicon.png" alt="" aria-hidden="true">
                         <span class="brand-copy">
-                            <strong>闪念</strong>
-                            <span>AI 语音笔记</span>
+                            <strong data-i18n="nav.brand">闪念</strong>
+                            <span data-i18n="nav.tagline">AI 语音笔记</span>
                         </span>
                     </a>
-                    <p>开口记录，AI 自动整理。由独立开发者北城打造。</p>
+                    <p data-i18n="footer.desc">开口记录，AI 自动整理。由独立开发者北城打造。</p>
                 </div>
                 <div class="footer-col">
-                    <h4>产品</h4>
-                    <a href="../desktop/">桌面端</a>
-                    <a href="../mobile/">手机端</a>
-                    <a href="../watch/">手表端</a>
-                    <a href="../integrations/">联动与 AI</a>
+                    <h4 data-i18n="footer.products">产品</h4>
+                    <a href="../desktop/" data-i18n="footer.desktop">桌面端</a>
+                    <a href="../mobile/" data-i18n="footer.mobile">手机端</a>
+                    <a href="../watch/" data-i18n="footer.watch">手表端</a>
+                    <a href="../integrations/" data-i18n="footer.integrations">联动与 AI</a>
                 </div>
                 <div class="footer-col">
-                    <h4>资源</h4>
-                    <a href="../download/">下载与安装</a>
-                    <a href="../help/">帮助</a>
-                    <a href="../#pricing">定价</a>
-                    <a href="https://www.northcity.top/logs/2025-11-15-shannian-featured/" target="_blank" rel="noopener noreferrer">更新动态</a>
+                    <h4 data-i18n="footer.resources">资源</h4>
+                    <a href="../download/" data-i18n="footer.download">下载与安装</a>
+                    <a href="../help/" data-i18n="footer.help">帮助</a>
+                    <a href="../#pricing" data-i18n="footer.pricing">定价</a>
+                    <a href="https://www.northcity.top/logs/2025-11-15-shannian-featured/" target="_blank" rel="noopener noreferrer" data-i18n="footer.changelog">更新动态</a>
                 </div>
                 <div class="footer-col">
-                    <h4>关于</h4>
-                    <a href="../about/">关于闪念</a>
-                    <a href="../contact/">联系我们</a>
-                    <a href="https://www.northcity.top/about/" target="_blank" rel="noopener noreferrer">关于北城</a>
+                    <h4 data-i18n="footer.about">关于</h4>
+                    <a href="../about/" data-i18n="footer.about-us">关于闪念</a>
+                    <a href="../contact/" data-i18n="footer.contact">联系我们</a>
+                    <a href="https://www.northcity.top/about/" target="_blank" rel="noopener noreferrer" data-i18n="footer.beicheng">关于北城</a>
                 </div>
                 <div class="footer-col">
-                    <h4>法律</h4>
-                    <a href="https://www.northcity.top/ideasnap-subscription-agreement/" target="_blank" rel="noopener noreferrer">服务条款</a>
-                    <a href="https://www.northcity.top/ideasnap-privacy-policy/" target="_blank" rel="noopener noreferrer">隐私政策</a>
+                    <h4 data-i18n="footer.legal">法律</h4>
+                    <a href="https://www.northcity.top/ideasnap-subscription-agreement/" target="_blank" rel="noopener noreferrer" data-i18n="footer.tos">服务条款</a>
+                    <a href="https://www.northcity.top/ideasnap-privacy-policy/" target="_blank" rel="noopener noreferrer" data-i18n="footer.privacy">隐私政策</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <span>© 2026 闪念 IdeaSnap. All rights reserved.</span>
-                <span>由 <a href="https://www.northcity.top/" target="_blank" rel="noopener noreferrer">独立开发者北城</a> 打造</span>
+                <span data-i18n="footer.copyright">© 2026 闪念 IdeaSnap. All rights reserved.</span>
+                <span data-i18n-html="footer.made-by.html">由 <a href="https://www.northcity.top/" target="_blank" rel="noopener noreferrer">独立开发者北城</a> 打造</span>
             </div>
         </div>
     </footer>

@@ -97,3 +97,39 @@
 .pricing-live-note { min-height:20px; margin:12px auto 0; text-align:center; color:var(--muted); font-size:12px; }
 .pricing-amount .price.loading { color:var(--muted); font-size:19px; font-weight:700; }
 @media (max-width:700px) { .nav-actions > .button-primary { display:none; } .nav-actions { margin-left:auto; gap:7px; } .account-button { max-width:150px; padding:0 12px; } .commerce-dialog { padding:22px 18px; } }
+
+@media (prefers-color-scheme: dark) {
+  .commerce-dialog {
+    background: var(--paper);
+    border-color: var(--line);
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.5);
+  }
+
+  .commerce-close {
+    background: var(--mist);
+    color: var(--ink);
+  }
+
+  .auth-tabs {
+    background: var(--mist);
+  }
+
+  .auth-tab.is-active {
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.2);
+  }
+
+  .account-card {
+    background: linear-gradient(135deg, #1a2235, #1a1f2e);
+  }
+
+  .membership-chip.free {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--muted);
+  }
+
+  .commerce-toast {
+    background: #1f2937;
+  }
+}

@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>支付成功 - 闪念</title>
+  <title data-i18n="success.pageTitle">支付成功 - 闪念</title>
   <script>window.SHANNIAN_API_BASE = 'https://waffo-webhook.chenxi19930623.workers.dev';</script>
   <script src="../../js/shannian-commerce.js" defer></script>
   <script src="../../js/waffo-success.js" defer></script>
+  <script src="../../js/i18n.js" defer></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -227,6 +228,7 @@
   </style>
 </head>
 <body>
+  <button class="lang-switch" id="lang-switch" type="button" title="切换到 English" style="position:fixed;top:16px;right:16px;z-index:100;font-size:13px;padding:6px 12px;border:1px solid #27c95d;background:#fff;color:#27c95d;border-radius:8px;cursor:pointer;font-weight:600;">EN</button>
   <main class="card">
     <div class="success-ring" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -234,37 +236,37 @@
       </svg>
     </div>
 
-    <h1>支付成功</h1>
-    <p class="subtitle">感谢你支持闪念会员<br>你的支持让产品能持续变得更好。</p>
+    <h1 data-i18n="success.title">支付成功</h1>
+    <p class="subtitle" data-i18n="success.subtitle">感谢你支持闪念会员<br>你的支持让产品能持续变得更好。</p>
 
     <div class="auto-note" id="payment-status">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="10" />
         <polyline points="12 6 12 12 16 14" />
       </svg>
-      正在确认会员权益…
+      <span data-i18n="success.status">正在确认会员权益…</span>
     </div>
-    <p class="subtitle" id="payment-detail" style="font-size: 13px; margin-top: 12px;">支付通知到达后，网站会自动刷新你的会员状态。</p>
+    <p class="subtitle" id="payment-detail" style="font-size: 13px; margin-top: 12px;" data-i18n="success.note">支付通知到达后，网站会自动刷新你的会员状态。</p>
 
     <hr class="divider" />
 
     <div class="help-section">
-      <div class="help-title">
+        <div class="help-title" data-i18n="success.help.title">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
           <line x1="12" y1="9" x2="12" y2="13" />
           <line x1="12" y1="17" x2="12.01" y2="17" />
         </svg>
-        会员未自动生效？
+        <span>会员未自动生效？</span>
       </div>
-      <p class="help-desc">
+      <p class="help-desc" data-i18n="success.help.desc">
         请先返回官网并登录付款时使用的同一账号。网站会自动验单；如果仍未生效，请通过以下方式联系我们，我们会在 <strong>24 小时内</strong>为你处理。
       </p>
       <div class="contact-list">
         <div class="contact-item" onclick="copyText(this)" data-copy="shine5211314">
           <span class="contact-icon wechat">微</span>
           <div>
-            <div class="contact-label">微信</div>
+            <div class="contact-label" data-i18n="success.wechat">微信</div>
             <div class="contact-value">shine5211314</div>
           </div>
           <span class="contact-right">
@@ -274,7 +276,7 @@
         <div class="contact-item" onclick="copyText(this)" data-copy="506343891@qq.com">
           <span class="contact-icon email">@</span>
           <div>
-            <div class="contact-label">邮箱</div>
+            <div class="contact-label" data-i18n="success.email">邮箱</div>
             <div class="contact-value">506343891@qq.com</div>
           </div>
           <span class="contact-right">
@@ -284,7 +286,7 @@
         <div class="contact-item" onclick="copyText(this)" data-copy="18202168082">
           <span class="contact-icon phone">电</span>
           <div>
-            <div class="contact-label">手机号</div>
+            <div class="contact-label" data-i18n="success.phone">手机号</div>
             <div class="contact-value">18202168082</div>
           </div>
           <span class="contact-right">
@@ -294,10 +296,10 @@
       </div>
     </div>
 
-    <a class="footer-link" href="https://ideasnap.xyz/">← 返回闪念官网</a>
+    <a class="footer-link" href="https://ideasnap.xyz/" data-i18n="success.back">← 返回闪念官网</a>
   </main>
 
-  <div class="toast" id="toast">已复制到剪贴板</div>
+  <div class="toast" id="toast" data-i18n="success.copied">已复制到剪贴板</div>
 
   <script>
     function copyText(el) {
