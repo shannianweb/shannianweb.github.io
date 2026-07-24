@@ -19,10 +19,26 @@
     syncAccountUi();
   };
   const api = async (path, options = {}) => {
-    const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
+    const method = String(options.method || 'GET').toUpperCase();
+    const headers = { ...(options.headers || {}) };
+    // Avoid unnecessary CORS preflight on public GETs (e.g. /api/plans).
+    if (method !== 'GET' && method !== 'HEAD' && !headers['Content-Type']) {
+      headers['Content-Type'] = 'application/json';
+    }
     const activeUser = state.user || getSession();
     if (options.auth !== false && activeUser?.sessionToken) headers.Authorization = `Bearer ${activeUser.sessionToken}`;
-    const response = await fetch(`${API_BASE}${path}`, { ...options, headers });
+    const { auth: _auth, timeoutMs = 12000, ...fetchOptions } = options;
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), timeoutMs);
+    let response;
+    try {
+      response = await fetch(`${API_BASE}${path}`, { ...fetchOptions, method, headers, signal: controller.signal });
+    } catch (error) {
+      if (error?.name === 'AbortError') throw new Error(isEnglish() ? 'Request timed out' : '请求超时，请稍后重试');
+      throw error;
+    } finally {
+      window.clearTimeout(timer);
+    }
     const payload = await response.json().catch(() => ({}));
     if (!response.ok || !payload.ok) throw new Error(payload.error || '请求失败，请稍后重试');
     return payload;
@@ -144,23 +160,28 @@
     if (!document.querySelector('[data-price-plan]')) return;
     const note = document.getElementById('pricing-live-note');
     try {
-      const { plans } = await api('/api/plans', { auth: false });
+      // Prices are public; login is only required when starting checkout.
+      const { plans } = await api('/api/plans', { auth: false, timeoutMs: 10000 });
       document.querySelectorAll('[data-price-plan]').forEach((node) => {
         const plan = plans[node.dataset.pricePlan];
         if (!plan) return;
         const price = node.querySelector('[data-price]');
         const period = node.querySelector('[data-period]');
         if (price) { price.textContent = plan.displayPrice || `${plan.amount} ${plan.currency}`; price.classList.remove('loading'); }
-        if (period) period.textContent = node.dataset.pricePlan === 'yearly' ? '/年' : node.dataset.pricePlan === 'monthly' ? '/月' : '一次性';
+        if (period) {
+          period.textContent = isEnglish()
+            ? (node.dataset.pricePlan === 'yearly' ? '/ year' : node.dataset.pricePlan === 'monthly' ? '/ month' : 'one time')
+            : (node.dataset.pricePlan === 'yearly' ? '/年' : node.dataset.pricePlan === 'monthly' ? '/月' : '一次性');
+        }
       });
       if (note) note.textContent = isEnglish()
-        ? 'Prices are synced live from Waffo. Checkout shows the final amount and taxes.'
-        : '价格实时同步自 Waffo 正式收银台，税费以结算页为准。';
+        ? 'Prices are synced live from Waffo. Sign in only when you buy; checkout shows the final amount and taxes.'
+        : '价格已同步自 Waffo。浏览无需登录，购买时再登录；税费以结算页为准。';
     } catch (error) {
+      // Keep fallback prices visible and leave buy buttons enabled (checkout still requires login).
       if (note) note.textContent = isEnglish()
-        ? 'Live prices are temporarily unavailable. Please refresh later.'
-        : '暂时无法加载实时价格，请稍后刷新页面。';
-      document.querySelectorAll('[data-plan-id]').forEach((button) => { button.disabled = true; });
+        ? 'Showing list prices. Live sync is temporarily unavailable; final amount appears at checkout after sign-in.'
+        : '当前展示列表价。实时价格暂时不可用，登录购买时以收银台金额为准。';
     }
   };
   const bind = () => {
@@ -178,8 +199,8 @@
     window.__shannianCommerceInitialized = true;
     bind();
     syncAccountUi();
-    await refreshUser();
-    await loadPlans();
+    // Load public prices immediately; user session refresh is independent.
+    await Promise.all([refreshUser(), loadPlans()]);
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initialize, { once: true });
   else window.queueMicrotask(initialize);

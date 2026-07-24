@@ -2,6 +2,13 @@
 
 import type { Locale } from "./site-context";
 
+/** Public list prices shown immediately; live Waffo values may replace them after /api/plans. */
+const FALLBACK_PRICES: Record<string, string> = {
+  monthly: "¥18",
+  yearly: "¥128",
+  lifetime_early_bird: "¥198",
+};
+
 const pricing = {
   zh: {
     plans: [
@@ -9,7 +16,7 @@ const pricing = {
       ["推荐方案", "年度订阅", "yearly", "/年", "适合长期记录与整理"],
       ["限时早鸟", "终身买断", "lifetime_early_bird", "一次性", "一次购买，长期使用"],
     ],
-    loading: "正在加载 Waffo 正式环境价格…",
+    loading: "价格可先浏览；购买前需登录。最终金额以 Waffo 收银台为准。",
     action: "安全购买",
     benefits: ["语音记录与 AI 整理", "待办自动提取", "全平台会员同步"],
   },
@@ -19,7 +26,7 @@ const pricing = {
       ["Recommended", "Yearly", "yearly", "/ year", "Built for a long-term note habit"],
       ["Early bird", "Lifetime", "lifetime_early_bird", "one time", "Purchase once for long-term use"],
     ],
-    loading: "Loading live prices from Waffo…",
+    loading: "Browse prices freely; sign in to buy. Final amount is shown at Waffo checkout.",
     action: "Buy securely",
     benefits: ["Voice capture and AI organization", "Automatic task extraction", "Membership on every platform"],
   },
@@ -40,7 +47,7 @@ export default function CommercePricing({ locale }: { locale: Locale }) {
             <span className="plan-label">{label}</span>
             <h3>{title}</h3>
             <div className="price pricing-amount" data-price-plan={planId}>
-              <strong className="loading" data-price>{locale === "zh" ? "加载价格…" : "Loading…"}</strong>
+              <strong data-price>{FALLBACK_PRICES[planId] || (locale === "zh" ? "查看收银台" : "See checkout")}</strong>
               <span data-period>{unit}</span>
             </div>
             <p className="plan-note">{note}</p>
