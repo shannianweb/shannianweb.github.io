@@ -50,17 +50,17 @@ export const externalLinks = {
   appStore:
     "https://apps.apple.com/cn/app/%E9%97%AA%E5%BF%B5-ai%E8%AF%AD%E9%9F%B3%E7%AC%94%E8%AE%B0/id1397149726",
   android:
-    "https://shannianrelease.oss-cn-beijing.aliyuncs.com/1.0.20/ShanNian-v1.0.20-release.apk",
+    "https://dl.northcity.top/1.0.20/ShanNian-v1.0.20-release.apk",
   windowsSetup:
-    "https://shannianrelease.oss-cn-beijing.aliyuncs.com/1.0.20/%E9%97%AA%E5%BF%B5%20Setup%201.0.20.exe",
+    "https://dl.northcity.top/1.0.20/%E9%97%AA%E5%BF%B5%20Setup%201.0.20.exe",
   windowsPortable:
-    "https://shannianrelease.oss-cn-beijing.aliyuncs.com/1.0.20/%E9%97%AA%E5%BF%B5%201.0.20.exe",
+    "https://dl.northcity.top/1.0.20/%E9%97%AA%E5%BF%B5%201.0.20.exe",
   macos:
-    "https://shannianrelease.oss-cn-beijing.aliyuncs.com/1.0.20/%E9%97%AA%E5%BF%B5-1.0.20-stapled.dmg",
+    "https://dl.northcity.top/1.0.20/%E9%97%AA%E5%BF%B5-1.0.20-stapled.dmg",
   linuxDeb:
-    "https://shannianrelease.oss-cn-beijing.aliyuncs.com/1.0.20/shannian-desktop_1.0.20_amd64.deb",
+    "https://dl.northcity.top/1.0.20/shannian-desktop_1.0.20_amd64.deb",
   linuxAppImage:
-    "https://shannianrelease.oss-cn-beijing.aliyuncs.com/1.0.20/%E9%97%AA%E5%BF%B5-1.0.20.AppImage",
+    "https://dl.northcity.top/1.0.20/%E9%97%AA%E5%BF%B5-1.0.20.AppImage",
   checkout: "/pricing#pricing-plans",
   privacy: "https://www.northcity.top/ideasnap-privacy-policy/",
   terms: "https://www.northcity.top/ideasnap-subscription-agreement/",
