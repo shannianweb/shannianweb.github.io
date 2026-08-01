@@ -50,17 +50,17 @@ export const externalLinks = {
   appStore:
     "https://apps.apple.com/cn/app/%E9%97%AA%E5%BF%B5-ai%E8%AF%AD%E9%9F%B3%E7%AC%94%E8%AE%B0/id1397149726",
   android:
-    "https://dl.northcity.top/1.0.18/%E9%97%AA%E5%BF%B5%E7%AC%94%E8%AE%B0_v1.0.18_release.apk",
+    "https://shannianrelease.oss-cn-beijing.aliyuncs.com/1.0.20/ShanNian-v1.0.20-release.apk",
   windowsSetup:
-    "https://dl.northcity.top/1.0.18/%E9%97%AA%E5%BF%B5%20Setup%201.0.18.exe",
+    "https://shannianrelease.oss-cn-beijing.aliyuncs.com/1.0.20/%E9%97%AA%E5%BF%B5%20Setup%201.0.20.exe",
   windowsPortable:
-    "https://dl.northcity.top/1.0.18/%E9%97%AA%E5%BF%B5%201.0.18.exe",
+    "https://shannianrelease.oss-cn-beijing.aliyuncs.com/1.0.20/%E9%97%AA%E5%BF%B5%201.0.20.exe",
   macos:
-    "https://dl.northcity.top/1.0.18/%E9%97%AA%E5%BF%B5-1.0.18-stapled.dmg",
+    "https://shannianrelease.oss-cn-beijing.aliyuncs.com/1.0.20/%E9%97%AA%E5%BF%B5-1.0.20-stapled.dmg",
   linuxDeb:
-    "https://dl.northcity.top/1.0.18/shannian-desktop_1.0.18_amd64.deb",
+    "https://shannianrelease.oss-cn-beijing.aliyuncs.com/1.0.20/shannian-desktop_1.0.20_amd64.deb",
   linuxAppImage:
-    "https://dl.northcity.top/1.0.18/%E9%97%AA%E5%BF%B5-1.0.18.AppImage",
+    "https://shannianrelease.oss-cn-beijing.aliyuncs.com/1.0.20/%E9%97%AA%E5%BF%B5-1.0.20.AppImage",
   checkout: "/pricing#pricing-plans",
   privacy: "https://www.northcity.top/ideasnap-privacy-policy/",
   terms: "https://www.northcity.top/ideasnap-subscription-agreement/",
@@ -479,13 +479,13 @@ const zhPages: Record<PageKey, DetailCopy> = {
   download: {
     group: "资源 · 下载与安装",
     title: "在手表、手机和电脑上继续同一条笔记",
-    lead: "当前版本 1.0.18。下面列出官方安装包和首次安装提示，避免系统安全提示打断使用。",
+    lead: "当前版本 1.0.20。下面列出官方安装包和首次安装提示，避免系统安全提示打断使用。",
     heroImage: "https://ideasnap.xyz/assets/showcase/platform-illustration.webp",
     heroAlt: "闪念支持的全平台设备",
     primary: { label: "iOS / Apple Watch", href: externalLinks.appStore, external: true },
     secondary: { label: "Android APK", href: externalLinks.android, external: true },
     highlights: [
-      { value: "1.0.18", label: "当前版本" },
+      { value: "1.0.20", label: "当前版本" },
       { value: "6 类", label: "支持平台" },
       { value: "同账号", label: "会员与笔记同步" },
     ],
@@ -1044,13 +1044,13 @@ const enPages: Record<PageKey, DetailCopy> = {
   download: {
     group: "Resources · Download",
     title: "Keep the same note moving across watch, phone, and desktop",
-    lead: "Current version: 1.0.18. Use the official packages below and follow the first-launch guidance when your operating system shows a security prompt.",
+    lead: "Current version: 1.0.20. Use the official packages below and follow the first-launch guidance when your operating system shows a security prompt.",
     heroImage: "https://ideasnap.xyz/assets/showcase/platform-illustration.webp",
     heroAlt: "Platforms supported by IdeaSnap",
     primary: { label: "iOS / Apple Watch", href: externalLinks.appStore, external: true },
     secondary: { label: "Android APK", href: externalLinks.android, external: true },
     highlights: [
-      { value: "1.0.18", label: "Current version" },
+      { value: "1.0.20", label: "Current version" },
       { value: "6", label: "Platform families" },
       { value: "One account", label: "Notes and membership sync" },
     ],
