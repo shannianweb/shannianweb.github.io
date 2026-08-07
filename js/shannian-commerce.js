@@ -4,18 +4,42 @@
   const PENDING_PAYMENT_KEY = 'shannian.web.pending-payment.v1';
   const state = { user: null, activePlanId: null, codeTimers: new Map() };
   const isEnglish = () => document.documentElement.lang.toLowerCase().startsWith('en');
+  const storage = (() => {
+    try {
+      // localStorage survives Waffo redirect and www/apex same-site hops better than sessionStorage.
+      const probe = '__shannian_storage_probe__';
+      window.localStorage.setItem(probe, '1');
+      window.localStorage.removeItem(probe);
+      return window.localStorage;
+    } catch {
+      return window.sessionStorage;
+    }
+  })();
 
-  const getSession = () => {
-    try { return JSON.parse(sessionStorage.getItem(SESSION_KEY) || 'null'); } catch { return null; }
+  // Migrate older sessionStorage values once so payment return pages still see login/pending.
+  try {
+    [SESSION_KEY, PENDING_PAYMENT_KEY].forEach((key) => {
+      if (storage.getItem(key)) return;
+      const legacy = window.sessionStorage.getItem(key);
+      if (legacy) storage.setItem(key, legacy);
+    });
+  } catch (_) {}
+
+  const readJson = (key) => {
+    try { return JSON.parse(storage.getItem(key) || 'null'); } catch { return null; }
   };
+  const writeJson = (key, value) => {
+    storage.setItem(key, JSON.stringify(value));
+  };
+  const getSession = () => readJson(SESSION_KEY);
   const saveSession = (user) => {
     state.user = user;
-    sessionStorage.setItem(SESSION_KEY, JSON.stringify(user));
+    writeJson(SESSION_KEY, user);
     syncAccountUi();
   };
   const clearSession = () => {
     state.user = null;
-    sessionStorage.removeItem(SESSION_KEY);
+    storage.removeItem(SESSION_KEY);
     syncAccountUi();
   };
   const api = async (path, options = {}) => {
@@ -98,14 +122,18 @@
       setAvatar(summary.querySelector('[data-profile-avatar]'), summary.querySelector('[data-profile-avatar-image]'));
     }
   };
-  const refreshUser = async () => {
+  const refreshUser = async ({ clearOnError = true } = {}) => {
     const saved = getSession();
     if (!saved?.sessionToken || !saved?.objectId) return;
     state.user = saved;
     try {
       const { user } = await api(`/api/auth/me?objectId=${encodeURIComponent(saved.objectId)}`);
       saveSession({ ...saved, ...user, sessionToken: saved.sessionToken });
-    } catch { clearSession(); }
+    } catch {
+      // Keep the local session during payment verification; a transient /me failure
+      // must not wipe credentials before verifyPayment can activate membership.
+      if (clearOnError) clearSession();
+    }
   };
   const setAuthTab = (name) => {
     document.querySelectorAll('[data-auth-tab]').forEach((button) => button.classList.toggle('is-active', button.dataset.authTab === name));
@@ -149,7 +177,7 @@
     if (button) { button.disabled = true; button.textContent = isEnglish() ? 'Creating secure order…' : '正在创建安全订单…'; }
     try {
       const { session } = await api('/api/checkout', { method: 'POST', body: JSON.stringify({ planId, objectId: state.user.objectId }) });
-      sessionStorage.setItem(PENDING_PAYMENT_KEY, JSON.stringify({ planId, since: Date.now() }));
+      writeJson(PENDING_PAYMENT_KEY, { planId, since: Date.now() });
       window.location.assign(session.checkoutUrl);
     } catch (error) {
       toast(error.message, 'error');
