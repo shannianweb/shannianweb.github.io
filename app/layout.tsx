@@ -54,9 +54,16 @@ export default function RootLayout({
   const themeScript = `
     (function () {
       try {
+        var params = new URLSearchParams(location.search);
+        var paramTheme = params.get('theme');
         var saved = localStorage.getItem('ideasnap-theme');
-        var theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        var theme = (paramTheme === 'dark' || paramTheme === 'light')
+          ? paramTheme
+          : (saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
         document.documentElement.dataset.theme = theme;
+        if (params.get('embed') === '1') {
+          document.documentElement.dataset.embed = '1';
+        }
       } catch (e) {
         document.documentElement.dataset.theme = 'light';
       }

@@ -1,4 +1,4 @@
 import type { Metadata } from "next";
-import DetailPage from "../detail-page";
-export const metadata: Metadata = { title: "使用方法｜闪念 AI 语音笔记", description: "从手表与手机捕捉，到 AI 整理，再到桌面编辑与归档的完整闪念工作流。", alternates: { canonical: "/workflow" } };
-export default function Page() { return <DetailPage page="workflow" />; }
+import PlaybookPage from "../playbook-page";
+export const metadata: Metadata = { title: "使用指南｜闪念 AI 语音笔记", description: "闪念使用指南：三步心智模型加上会议纪要、腕上灵感、周复盘等真实场景，每一条都能直接照做。", alternates: { canonical: "/workflow" } };
+export default function Page() { return <PlaybookPage />; }

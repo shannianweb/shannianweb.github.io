@@ -10,8 +10,13 @@ function Link({ href, ...props }: AnchorHTMLAttributes<HTMLAnchorElement> & { hr
 }
 
 export default function SiteShell({ children }: { children: React.ReactNode }) {
-  const { locale, theme, toggleLocale, toggleTheme } = useSite();
+  const { locale, theme, embed, toggleLocale, toggleTheme } = useSite();
   const copy = commonCopy[locale];
+
+  // App 内嵌模式：只保留页面主体，页头页脚由客户端外壳提供
+  if (embed) {
+    return <>{children}</>;
+  }
 
   return (
     <>
