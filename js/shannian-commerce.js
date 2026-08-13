@@ -4,6 +4,10 @@
   const PENDING_PAYMENT_KEY = 'shannian.web.pending-payment.v1';
   const state = { user: null, activePlanId: null, codeTimers: new Map() };
   const isEnglish = () => document.documentElement.lang.toLowerCase().startsWith('en');
+  const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  // Auth modal panels grouped by top-level tab; pills switch panels inside a group.
+  const AUTH_PANEL_GROUPS = { sms: 'code', email: 'code', password: 'password', 'email-reset': 'password', register: 'register', 'email-register': 'register' };
+  const AUTH_TAB_DEFAULTS = { code: 'sms', password: 'password', register: 'register' };
   const storage = (() => {
     try {
       // localStorage survives Waffo redirect and www/apex same-site hops better than sessionStorage.
@@ -115,7 +119,7 @@
     if (summary) {
       if (!state.user) return;
       summary.querySelector('[data-account-name]').textContent = name;
-      summary.querySelector('[data-account-phone]').textContent = state.user.mobilePhoneNumber || state.user.username || '';
+      summary.querySelector('[data-account-phone]').textContent = state.user.mobilePhoneNumber || state.user.email || state.user.username || '';
       const membership = summary.querySelector('[data-membership]');
       membership.textContent = formatMembership(state.user);
       membership.classList.toggle('free', !state.user.isPro);
@@ -135,9 +139,24 @@
       if (clearOnError) clearSession();
     }
   };
-  const setAuthTab = (name) => {
-    document.querySelectorAll('[data-auth-tab]').forEach((button) => button.classList.toggle('is-active', button.dataset.authTab === name));
+  const setAuthPanel = (name) => {
+    const group = AUTH_PANEL_GROUPS[name] || name;
+    document.querySelectorAll('[data-auth-tab]').forEach((button) => button.classList.toggle('is-active', button.dataset.authTab === group));
+    document.querySelectorAll('[data-auth-methods]').forEach((node) => { node.hidden = node.dataset.authMethods !== group; });
+    document.querySelectorAll('[data-auth-method]').forEach((button) => button.classList.toggle('is-active', button.dataset.authMethod === name));
     document.querySelectorAll('[data-auth-form]').forEach((form) => { form.hidden = form.dataset.authForm !== name; });
+  };
+  const startCodeCountdown = (button) => {
+    if (!button.dataset.idleLabel) button.dataset.idleLabel = button.textContent;
+    const idleLabel = button.dataset.idleLabel;
+    let remaining = 60;
+    const label = () => (isEnglish() ? `Retry in ${remaining}s` : `${remaining}s 后重发`);
+    button.textContent = label();
+    const timer = window.setInterval(() => {
+      remaining -= 1;
+      button.textContent = remaining > 0 ? label() : idleLabel;
+      if (remaining <= 0) { window.clearInterval(timer); button.disabled = false; }
+    }, 1000);
   };
   const requestSms = async (button) => {
     const form = button.closest('form');
@@ -145,29 +164,62 @@
     button.disabled = true;
     try {
       await api('/api/auth/send-sms', { method: 'POST', body: JSON.stringify({ phone }), auth: false });
-      toast('验证码已发送，请查收短信', 'success');
-      let remaining = 60;
-      button.textContent = `${remaining}s 后重发`;
-      const timer = window.setInterval(() => {
-        remaining -= 1;
-        button.textContent = remaining > 0 ? `${remaining}s 后重发` : '发送验证码';
-        if (remaining <= 0) { window.clearInterval(timer); button.disabled = false; }
-      }, 1000);
+      toast(isEnglish() ? 'Code sent. Check your SMS.' : '验证码已发送，请查收短信', 'success');
+      startCodeCountdown(button);
     } catch (error) { toast(error.message, 'error'); button.disabled = false; }
+  };
+  const requestEmailCode = async (button) => {
+    const form = button.closest('form');
+    const email = String(form?.querySelector('input[name="email"]')?.value || '').trim().toLowerCase();
+    if (!EMAIL_REGEX.test(email)) { toast(isEnglish() ? 'Enter a valid email address' : '请输入正确的邮箱地址', 'error'); return; }
+    const purpose = form?.dataset.emailPurpose === 'reset' ? 'reset' : 'login';
+    button.disabled = true;
+    try {
+      await api('/api/auth/send-email-code', { method: 'POST', body: JSON.stringify({ email, purpose }), auth: false });
+      toast(isEnglish() ? 'Code sent to your email. Valid for 5 minutes.' : '验证码已发送至邮箱，5 分钟内有效', 'success');
+      startCodeCountdown(button);
+    } catch (error) { toast(error.message, 'error'); button.disabled = false; }
+  };
+  const validateAuthValues = (mode, values) => {
+    if (typeof values.email === 'string') {
+      values.email = values.email.trim().toLowerCase();
+      if (!EMAIL_REGEX.test(values.email)) return isEnglish() ? 'Enter a valid email address' : '请输入正确的邮箱地址';
+    }
+    if ((mode === 'email' || mode === 'email-register' || mode === 'email-reset') && !/^\d{6}$/.test(String(values.code || ''))) {
+      return isEnglish() ? 'Enter the 6-digit code' : '请输入 6 位验证码';
+    }
+    if (typeof values.password === 'string' && (values.password.length < 6 || values.password.length > 16)) {
+      return isEnglish() ? 'Password must be 6-16 characters' : '密码长度需为 6-16 位';
+    }
+    return null;
   };
   const submitAuth = async (form) => {
     const values = Object.fromEntries(new FormData(form));
     const mode = form.dataset.authForm;
+    const invalidMessage = validateAuthValues(mode, values);
+    if (invalidMessage) { toast(invalidMessage, 'error'); return; }
     const button = form.querySelector('button[type="submit"]');
     button.disabled = true;
     try {
+      if (mode === 'email-reset') {
+        // Password reset issues no session; jump back to password login prefilled.
+        await api('/api/auth/reset-password-email', { method: 'POST', body: JSON.stringify(values), auth: false });
+        toast(isEnglish() ? 'Password reset. Log in with your new password.' : '密码已重置，请使用新密码登录', 'success');
+        const accountInput = document.querySelector('[data-auth-form="password"] input[name="account"]');
+        if (accountInput) accountInput.value = values.email;
+        form.reset();
+        setAuthPanel('password');
+        return;
+      }
       let response;
       if (mode === 'sms') response = await api('/api/auth/login-sms', { method: 'POST', body: JSON.stringify(values), auth: false });
+      if (mode === 'email') response = await api('/api/auth/login-email', { method: 'POST', body: JSON.stringify(values), auth: false });
       if (mode === 'password') response = await api('/api/auth/login-password', { method: 'POST', body: JSON.stringify(values), auth: false });
       if (mode === 'register') response = await api('/api/auth/register-password', { method: 'POST', body: JSON.stringify(values), auth: false });
+      if (mode === 'email-register') response = await api('/api/auth/register-email', { method: 'POST', body: JSON.stringify(values), auth: false });
       saveSession(response.user);
       closeModal('auth-modal');
-      toast('登录成功，欢迎回来', 'success');
+      toast(isEnglish() ? 'Logged in. Welcome back!' : '登录成功，欢迎回来', 'success');
       if (state.activePlanId) { const planId = state.activePlanId; state.activePlanId = null; await startCheckout(planId); }
     } catch (error) { toast(error.message, 'error'); } finally { button.disabled = false; }
   };
@@ -215,8 +267,11 @@
   const bind = () => {
     document.querySelectorAll('[data-close-modal]').forEach((button) => button.addEventListener('click', () => closeModal(button.dataset.closeModal)));
     document.querySelectorAll('.commerce-modal').forEach((modal) => modal.addEventListener('click', (event) => { if (event.target === modal) modal.hidden = true; }));
-    document.querySelectorAll('[data-auth-tab]').forEach((button) => button.addEventListener('click', () => setAuthTab(button.dataset.authTab)));
+    document.querySelectorAll('[data-auth-tab]').forEach((button) => button.addEventListener('click', () => setAuthPanel(AUTH_TAB_DEFAULTS[button.dataset.authTab] || button.dataset.authTab)));
+    document.querySelectorAll('[data-auth-method]').forEach((button) => button.addEventListener('click', () => setAuthPanel(button.dataset.authMethod)));
+    document.querySelectorAll('[data-auth-goto]').forEach((button) => button.addEventListener('click', () => setAuthPanel(button.dataset.authGoto)));
     document.querySelectorAll('[data-send-sms]').forEach((button) => button.addEventListener('click', () => requestSms(button)));
+    document.querySelectorAll('[data-send-email-code]').forEach((button) => button.addEventListener('click', () => requestEmailCode(button)));
     document.querySelectorAll('[data-auth-form]').forEach((form) => form.addEventListener('submit', (event) => { event.preventDefault(); submitAuth(form); }));
     document.querySelectorAll('[data-plan-id]').forEach((button) => button.addEventListener('click', () => startCheckout(button.dataset.planId)));
     document.getElementById('account-trigger')?.addEventListener('click', () => openModal(state.user ? 'account-modal' : 'auth-modal'));

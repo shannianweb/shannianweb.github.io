@@ -77,8 +77,16 @@
 .auth-tabs { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; padding:4px; margin-bottom:20px; border-radius:10px; background:var(--green-soft); }
 .auth-tab { min-height:38px; border:0; border-radius:7px; background:transparent; color:var(--muted); cursor:pointer; font-size:13px; font-weight:700; }
 .auth-tab.is-active { color:var(--ink); background:#fff; box-shadow:0 3px 9px rgba(16,24,40,.08); }
+.auth-method-pills { display:flex; gap:8px; margin:-6px 0 16px; }
+.auth-method-pills[hidden] { display:none; }
+.auth-method-pill { border:1px solid var(--line); border-radius:999px; padding:6px 14px; background:transparent; color:var(--muted); cursor:pointer; font-size:12px; font-weight:700; }
+.auth-method-pill.is-active { border-color:var(--green); background:var(--green-soft); color:var(--green-dark); }
 .auth-form[hidden] { display:none; }
 .auth-form { display:grid; gap:14px; }
+.auth-link-row { margin:0; text-align:center; }
+.auth-link { border:0; padding:0; background:none; color:var(--green-dark); cursor:pointer; font:inherit; font-size:12.5px; font-weight:700; }
+.auth-link:hover { text-decoration:underline; }
+.auth-reset-desc { margin:0; font-size:13px; }
 .commerce-field { display:grid; gap:7px; color:var(--ink); font-size:13px; font-weight:700; }
 .commerce-field input { min-height:46px; width:100%; padding:0 13px; border:1px solid var(--line); border-radius:9px; outline:none; color:var(--ink); font:inherit; }
 .commerce-field input:focus { border-color:var(--green); box-shadow:0 0 0 3px rgba(39,201,93,.13); }
