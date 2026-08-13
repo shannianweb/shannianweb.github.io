@@ -29,6 +29,9 @@ export type PlaybookReferenceGroup = {
 };
 
 export type PlaybookCopy = {
+  brandName: string;
+  brandTagline: string;
+  heroStats: Array<{ value: string; label: string }>;
   kicker: string;
   title: string;
   lead: string;
@@ -58,6 +61,13 @@ export type PlaybookCopy = {
 };
 
 const zh: PlaybookCopy = {
+  brandName: "闪念",
+  brandTagline: "AI 语音笔记",
+  heroStats: [
+    { value: "10 个", label: "真实场景" },
+    { value: "3 步", label: "从开口到落地" },
+    { value: "全平台", label: "手表 · 手机 · 电脑" },
+  ],
   kicker: "使用指南",
   title: "先说出来，再把它推进成结果",
   lead: "不用先学会整理。下面是闪念在真实生活里的用法：从一句话开始，AI 接手机械的整理，你只负责想法和决定。",
@@ -337,6 +347,13 @@ const zh: PlaybookCopy = {
 };
 
 const en: PlaybookCopy = {
+  brandName: "IdeaSnap",
+  brandTagline: "AI Voice Notes",
+  heroStats: [
+    { value: "10", label: "real scenarios" },
+    { value: "3 steps", label: "from spoken to done" },
+    { value: "Everywhere", label: "Watch · Phone · Desktop" },
+  ],
   kicker: "How it works",
   title: "Say it first, then move it toward an outcome",
   lead: "No setup to learn. Here is how IdeaSnap works in real life: start with one sentence, let AI handle the mechanical organizing, and keep your attention on ideas and decisions.",

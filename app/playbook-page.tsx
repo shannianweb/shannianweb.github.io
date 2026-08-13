@@ -110,10 +110,31 @@ export default function PlaybookPage() {
   return (
     <main className="playbook-page">
       <section className="playbook-hero">
+        <div className="playbook-hero-glow" aria-hidden="true" />
         <div className="container playbook-hero-inner">
-          <span className="section-kicker">{copy.kicker}</span>
+          <div className="playbook-brand">
+            <img
+              src="https://ideasnap.xyz/assets/icons/Appicon.png"
+              alt=""
+              width="120"
+              height="120"
+            />
+            <span>
+              <strong>{copy.brandName}</strong>
+              <small>{copy.brandTagline}</small>
+            </span>
+            <em>{copy.kicker}</em>
+          </div>
           <h1>{copy.title}</h1>
           <p>{copy.lead}</p>
+          <div className="playbook-hero-stats">
+            {copy.heroStats.map((stat) => (
+              <div key={stat.label}>
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

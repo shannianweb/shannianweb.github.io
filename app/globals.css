@@ -3188,12 +3188,72 @@ html[data-theme="dark"] .footer-bottom {
     linear-gradient(145deg, #fbfdfc 0%, #f4faf6 100%);
 }
 
+.playbook-hero-glow {
+  position: absolute;
+  top: -20%;
+  right: -8%;
+  width: 460px;
+  height: 460px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(19, 200, 114, 0.18), transparent 62%);
+  pointer-events: none;
+}
+
 .playbook-hero-inner {
+  position: relative;
+  z-index: 1;
   max-width: 780px;
 }
 
+/* 品牌标识：App 图标 + 名称 + 指南徽章（App 内嵌时是唯一的品牌锚点） */
+.playbook-brand {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.playbook-brand img {
+  width: 52px;
+  height: 52px;
+  border-radius: 15px;
+  box-shadow: 0 10px 26px rgba(16, 120, 74, 0.18);
+}
+
+.playbook-brand > span {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.playbook-brand strong {
+  color: var(--ink);
+  font-size: 19px;
+  letter-spacing: -0.02em;
+}
+
+.playbook-brand small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.playbook-brand em {
+  padding: 7px 13px;
+  border: 1px solid #d6e9df;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--green-dark);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 750;
+  letter-spacing: 0.02em;
+}
+
 .playbook-hero h1 {
-  margin: 18px 0;
+  margin: 0 0 18px;
   color: #111c17;
   font-size: clamp(38px, 4.6vw, 54px);
   line-height: 1.12;
@@ -3206,6 +3266,36 @@ html[data-theme="dark"] .footer-bottom {
   color: #536159;
   font-size: 17px;
   line-height: 1.85;
+}
+
+.playbook-hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+.playbook-hero-stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-right: 26px;
+}
+
+.playbook-hero-stats > div + div {
+  padding-left: 26px;
+  border-left: 1px solid var(--line);
+}
+
+.playbook-hero-stats strong {
+  color: var(--ink);
+  font-size: 21px;
+  letter-spacing: -0.03em;
+}
+
+.playbook-hero-stats span {
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 600;
 }
 
 /* --- 三步心智模型 --- */
@@ -3605,6 +3695,19 @@ html[data-theme="dark"] .playbook-hero p {
   color: var(--muted);
 }
 
+html[data-theme="dark"] .playbook-hero-glow {
+  background: radial-gradient(circle, rgba(32, 173, 100, 0.22), transparent 62%);
+}
+
+html[data-theme="dark"] .playbook-brand em {
+  border-color: rgba(53, 76, 64, 0.92);
+  background: rgba(19, 32, 25, 0.9);
+}
+
+html[data-theme="dark"] .playbook-brand img {
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4);
+}
+
 html[data-theme="dark"] .playbook-scenarios {
   background: #0f1b14;
 }
@@ -3681,8 +3784,12 @@ html[data-embed="1"] {
   scroll-padding-top: 12px;
 }
 
+/* 静态 HTML 是按非嵌入模式导出的，若只靠 React 状态隐藏，
+   App 内会在 hydration 完成前闪出页头页脚和下载 CTA。
+   data-embed 由 head 内联脚本同步写入，这里在首屏渲染前就挡住。 */
 html[data-embed="1"] .site-header,
-html[data-embed="1"] .site-footer {
+html[data-embed="1"] .site-footer,
+html[data-embed="1"] .detail-final-cta {
   display: none;
 }
 
@@ -3700,6 +3807,20 @@ html[data-embed="1"] .playbook-hero h1 {
 
 html[data-embed="1"] .playbook-hero p {
   font-size: 15.5px;
+}
+
+html[data-embed="1"] .playbook-brand {
+  margin-bottom: 18px;
+}
+
+html[data-embed="1"] .playbook-brand img {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+}
+
+html[data-embed="1"] .playbook-hero-stats {
+  margin-top: 24px;
 }
 
 html[data-embed="1"] .playbook-page .section {
@@ -3743,6 +3864,26 @@ html[data-embed="1"] .playbook-page .section-heading h2 {
 }
 
 @media (max-width: 600px) {
+  /* 窄屏三格数据换行时竖线会落在行首，改用纯间距分隔 */
+  .playbook-hero-stats {
+    gap: 16px 22px;
+  }
+
+  .playbook-hero-stats > div,
+  .playbook-hero-stats > div + div {
+    padding-right: 0;
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .playbook-hero-stats strong {
+    font-size: 18px;
+  }
+
+  .playbook-hero-stats span {
+    font-size: 11.5px;
+  }
+
   .playbook-card-toggle span {
     display: none;
   }
