@@ -114,7 +114,7 @@ export default function PlaybookPage() {
         <div className="container playbook-hero-inner">
           <div className="playbook-brand">
             <img
-              src="https://ideasnap.xyz/assets/icons/Appicon.png"
+              src="/assets/icons/Appicon.png"
               alt=""
               width="120"
               height="120"

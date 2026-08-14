@@ -70,7 +70,7 @@ const zh: PlaybookCopy = {
   ],
   kicker: "使用指南",
   title: "先说出来，再把它推进成结果",
-  lead: "不用先学会整理。下面是闪念在真实生活里的用法：从一句话开始，AI 接手机械的整理，你只负责想法和决定。",
+  lead: "开口记录，AI 自动整理。这里汇集了闪念在真实生活里的用法：从一句话开始，机械的整理交给 AI，你只负责想法和决定。不用先学会整理，直接照着场景上手。",
 
   stageKicker: "三步心智模型",
   stageTitle: "一条闪念的完整旅程",
@@ -356,7 +356,7 @@ const en: PlaybookCopy = {
   ],
   kicker: "How it works",
   title: "Say it first, then move it toward an outcome",
-  lead: "No setup to learn. Here is how IdeaSnap works in real life: start with one sentence, let AI handle the mechanical organizing, and keep your attention on ideas and decisions.",
+  lead: "Speak it out — AI organizes the rest. This guide gathers real-life ways to use IdeaSnap: start with one sentence, leave the mechanical work to AI, and keep your focus on ideas and decisions. No setup required — just follow a scenario.",
 
   stageKicker: "A three-step mental model",
   stageTitle: "The full journey of one idea",

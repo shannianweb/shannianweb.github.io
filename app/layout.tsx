@@ -61,11 +61,13 @@ export default function RootLayout({
           ? paramTheme
           : (saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
         document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
         if (params.get('embed') === '1') {
           document.documentElement.dataset.embed = '1';
         }
       } catch (e) {
         document.documentElement.dataset.theme = 'light';
+        document.documentElement.style.colorScheme = 'light';
       }
     })();
   `;
