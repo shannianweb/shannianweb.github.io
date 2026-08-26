@@ -6,7 +6,7 @@ import type { Locale } from "./site-context";
 const FALLBACK_PRICES: Record<string, string> = {
   monthly: "¥18",
   yearly: "¥128",
-  lifetime_early_bird: "¥198",
+  lifetime_early_bird: "¥368",
 };
 
 const pricing = {
